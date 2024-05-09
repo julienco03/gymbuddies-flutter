@@ -63,7 +63,7 @@ class CommonLayout extends StatelessWidget {
         title: Text(
           "Gymbuddies",
           style: TextStyle(
-            color: AppColors.getTextColor(isDarkMode),
+            color: AppColors.getAccentColor(isDarkMode),
             fontSize: 30,
             fontWeight: FontWeight.w900,
             fontStyle: FontStyle.italic,
@@ -71,7 +71,7 @@ class CommonLayout extends StatelessWidget {
         ),
         backgroundColor: AppColors.getSecondaryColor(isDarkMode),
         centerTitle: true,
-        iconTheme: IconThemeData(color: AppColors.getAccentColor(isDarkMode)),
+        iconTheme: IconThemeData(color: AppColors.getTextColor(isDarkMode)),
         leading: IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
