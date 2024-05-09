@@ -148,8 +148,10 @@ class HomePageBody extends StatelessWidget {
               },
               style: ElevatedButton.styleFrom(
                   side: BorderSide(
-                      color: AppColors.getAccentColor(isDarkMode), width: 2),
-                  elevation: 5),
+                      color: AppColors.getAccentColor(isDarkMode), width: 3),
+                  elevation: 5,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0, vertical: 15.0)),
               child: Text(
                 "START TRAINING",
                 style: TextStyle(
