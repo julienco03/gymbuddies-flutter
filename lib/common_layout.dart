@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/colors.dart';
-import 'package:gymbuddies/pages/profile.dart';
-import 'package:gymbuddies/pages/settings.dart';
-import 'package:gymbuddies/pages/home.dart';
-import 'package:gymbuddies/pages/training.dart';
-import 'package:gymbuddies/pages/calender.dart';
-import 'package:gymbuddies/pages/contacts.dart';
+import 'colors.dart';
+import 'pages/profile.dart';
+import 'pages/settings.dart';
+import 'pages/home.dart';
+import 'pages/training.dart';
+import 'pages/calender.dart';
+import 'pages/contacts.dart';
 
 class CommonLayout extends StatelessWidget {
   final Widget body;
