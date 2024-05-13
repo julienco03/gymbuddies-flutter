@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../utils/calender_event.dart';
+import '../utils/event.dart';
 
 class BasicCalender extends StatefulWidget {
   const BasicCalender({super.key});
