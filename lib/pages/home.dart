@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../colors.dart';
+import '../utils/colors.dart';
 import '../common_layout.dart';
 import '../components/container_with_text.dart';
 import '../pages/training.dart';
