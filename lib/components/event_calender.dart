@@ -60,7 +60,6 @@ class _EventCalenderState extends State<EventCalender> {
             eventLoader: _getEventsForDay,
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: CalendarStyle(
-              // Use `CalendarStyle` to customize the UI
               outsideDaysVisible: true,
               selectedTextStyle: const TextStyle(color: Colors.black),
               selectedDecoration: BoxDecoration(
@@ -71,6 +70,8 @@ class _EventCalenderState extends State<EventCalender> {
                   color: AppColors.getAccentColor(isDarkMode).withOpacity(0.5),
                   shape: BoxShape.circle),
             ),
+            headerStyle: const HeaderStyle(
+                formatButtonVisible: false, titleCentered: true),
             onDaySelected: _onDaySelected,
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
@@ -84,17 +85,53 @@ class _EventCalenderState extends State<EventCalender> {
                 return ListView.builder(
                   itemCount: value.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12.0,
-                        vertical: 4.0,
+                    return Dismissible(
+                      key: Key(value[index].toString()),
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (direction) {
+                        if (direction == DismissDirection.endToStart) {
+                          setState(() {
+                            // TODO: Event richtig löschen
+                            _selectedEvents.value.removeAt(index);
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${value[index]} removed'),
+                              duration: const Duration(seconds: 3),
+                              action: SnackBarAction(
+                                label: 'Undo',
+                                onPressed: () {
+                                  setState(() {
+                                    // TODO: Löschen von Event richtig rückgängig machen
+                                    _selectedEvents.value
+                                        .insert(index, value[index]);
+                                  });
+                                },
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(right: 20.0),
+                        child: const Icon(Icons.delete),
                       ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ListTile(
-                        title: Text('${value[index]}'),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 4.0,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.getSecondaryColor(isDarkMode),
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                        child: ListTile(
+                          // TODO: Neben dem Titel soll auch die Uhrzeit angezeigt werden
+                          textColor: AppColors.getTextColor(isDarkMode),
+                          title: Text('${value[index]}'),
+                        ),
                       ),
                     );
                   },

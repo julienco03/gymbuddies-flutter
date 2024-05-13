@@ -69,7 +69,7 @@ class CommonLayout extends StatelessWidget {
             fontStyle: FontStyle.italic,
           ),
         ),
-        backgroundColor: AppColors.getSecondaryColor(isDarkMode),
+        backgroundColor: AppColors.getPrimaryColor(isDarkMode),
         centerTitle: true,
         iconTheme: IconThemeData(color: AppColors.getTextColor(isDarkMode)),
         leading: IconButton(
@@ -96,7 +96,7 @@ class CommonLayout extends StatelessWidget {
       body: body,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: AppColors.getSecondaryColor(isDarkMode),
+        backgroundColor: AppColors.getPrimaryColor(isDarkMode),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

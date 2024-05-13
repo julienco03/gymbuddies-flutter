@@ -44,7 +44,12 @@ class CalenderPageBody extends StatelessWidget {
         bottom: 16.0,
         right: 16.0,
         child: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            // TODO: Bei Klick auf den Plus-Button soll sich eine neue View über der CalenderPage öffnen,
+            // mit der man einen neuen Trainingstermin hinzufügen kann
+            // Das Datum holt man sich hierbei über den ausgewählten Tag
+            // Der neue Termin wird schließlich in der Datenbank gespeichert
+          },
           backgroundColor: AppColors.getAccentColor(isDarkMode),
           child: const Icon(Icons.add), // Hintergrundfarbe des FABs
         ),

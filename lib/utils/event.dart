@@ -1,6 +1,9 @@
 import 'dart:collection';
 import 'package:table_calendar/table_calendar.dart';
 
+// TODO: Die Klasse Event soll evtl. in TrainingSession umbenannt werden
+// und um die Uhrzeit erweitert werden
+
 class Event {
   final String title;
 
@@ -16,11 +19,11 @@ final kEvents = LinkedHashMap<DateTime, List<Event>>(
 )..addAll(_kEventSource);
 
 final _kEventSource = {
-  // TODO: Get events from database
+  // TODO: Hole Trainingstermine aus Datenbank
   kToday: [
-    const Event('Today\'s Event 1'),
-    const Event('Today\'s Event 2'),
-    const Event('Today\'s Event 3'),
+    const Event('Chest Day with Tom'),
+    const Event('Biking with Max'),
+    const Event('Abs workout'),
   ],
 };
 
