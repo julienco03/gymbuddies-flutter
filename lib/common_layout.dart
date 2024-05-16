@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/pages/profile.dart';
-import 'package:gymbuddies/pages/settings.dart';
+import 'utils/colors.dart';
+import 'pages/profile.dart';
+import 'pages/settings.dart';
+import 'pages/home.dart';
+import 'pages/training.dart';
+import 'pages/calender.dart';
+import 'pages/contacts.dart';
 
 class CommonLayout extends StatelessWidget {
   final Widget body;
@@ -12,44 +17,61 @@ class CommonLayout extends StatelessWidget {
     required this.selectedIndex,
   });
 
-  void _onItemTapped(BuildContext context, int index) {
-    // Navigation zur entsprechenden Seite durchführen
+  void _navigateWithAnimation(BuildContext context, int index) {
+    Widget page;
     if (index != selectedIndex) {
       switch (index) {
         case 0:
-          Navigator.pushReplacementNamed(context, '/home');
+          page = const HomePage();
           break;
         case 1:
-          Navigator.pushReplacementNamed(context, '/training');
+          page = const TrainingPage();
           break;
         case 2:
-          Navigator.pushReplacementNamed(context, '/calender');
+          page = const CalenderPage();
           break;
         case 3:
-          Navigator.pushReplacementNamed(context, '/contacts');
+          page = const ContactsPage();
           break;
-        // TODO: Fehlerbehandlung?
-        // TODO: schönere Animation für Seitenwechsel
+        default:
+          return;
       }
+
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) => page,
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          transitionDuration: const Duration(milliseconds: 200),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    Brightness platformBrightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = platformBrightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Gymbuddies",
           style: TextStyle(
-            color: Colors.amber,
+            color: AppColors.getAccentColor(isDarkMode),
             fontSize: 30,
             fontWeight: FontWeight.w900,
             fontStyle: FontStyle.italic,
           ),
         ),
-        backgroundColor: Colors.blue[700],
+        backgroundColor: AppColors.getPrimaryColor(isDarkMode),
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: AppColors.getTextColor(isDarkMode)),
         leading: IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
@@ -74,7 +96,7 @@ class CommonLayout extends StatelessWidget {
       body: body,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.blue[800],
+        backgroundColor: AppColors.getPrimaryColor(isDarkMode),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -94,9 +116,9 @@ class CommonLayout extends StatelessWidget {
           ),
         ],
         currentIndex: selectedIndex,
-        fixedColor: Colors.amber[400],
-        unselectedItemColor: Colors.white,
-        onTap: (index) => _onItemTapped(context, index),
+        fixedColor: AppColors.getAccentColor(isDarkMode),
+        unselectedItemColor: AppColors.getTextColor(isDarkMode),
+        onTap: (index) => _navigateWithAnimation(context, index),
       ),
     );
   }
