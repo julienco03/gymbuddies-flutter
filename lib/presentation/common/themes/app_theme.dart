@@ -25,6 +25,21 @@ final ThemeData darkTheme = ThemeData(
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.primaryColor,
       selectedItemColor: AppColors.accentColor,
+      selectedLabelStyle: TextStyle(color: AppColors.accentColor),
       unselectedItemColor: AppColors.textColor,
+      unselectedLabelStyle: TextStyle(color: AppColors.accentColor),
     ),
-    textTheme: TextTheme());
+    textTheme: const TextTheme(
+        titleLarge: TextStyle(
+          fontSize: 24.0,
+          fontWeight: FontWeight.bold,
+          color: AppColors.textColor,
+        ),
+        bodyMedium: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.normal,
+            color: AppColors.textColor),
+        labelLarge: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+            color: AppColors.primaryColor)));
