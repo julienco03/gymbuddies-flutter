@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 import 'package:gymbuddies/presentation/common/widgets/app_bar.dart';
 import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
 import 'package:gymbuddies/presentation/home/widgets/recent_trainings_widget.dart';
@@ -14,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
+  final int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +22,6 @@ class HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: MyAppBar(),
       ),
-      backgroundColor: AppColors.backgroundColor,
       body: const Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -38,14 +36,7 @@ class HomePageState extends State<HomePage> {
           StartTrainingButton()
         ],
       ),
-      bottomNavigationBar: MyBottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-      ),
+      bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
     );
   }
 }

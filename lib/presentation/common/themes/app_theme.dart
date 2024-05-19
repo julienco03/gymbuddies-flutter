@@ -11,6 +11,7 @@ final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Roboto',
     fontFamilyFallback: const ['sans-serif'],
+    scaffoldBackgroundColor: AppColors.backgroundColor,
     appBarTheme: const AppBarTheme(
       color: AppColors.backgroundColor,
       centerTitle: true,
