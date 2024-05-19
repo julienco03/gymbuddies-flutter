@@ -21,7 +21,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Gymbuddies',
-      theme: appTheme,
+      theme: darkTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.system,
       initialRoute: '/',
       routes: {
         '/': (context) => const HomePage(),
