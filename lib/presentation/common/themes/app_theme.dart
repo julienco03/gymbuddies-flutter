@@ -17,15 +17,15 @@ class AppColors {
 }
 
 const appBarThemeLight = AppBarTheme(
-  color: AppColors.backgroundColorDark,
+  color: AppColors.backgroundColorLight,
   centerTitle: true,
   titleTextStyle: TextStyle(
-    color: AppColors.accentColor,
+    color: Color.fromARGB(255, 15, 199, 70),
     fontSize: 30,
     fontWeight: FontWeight.w900,
     fontStyle: FontStyle.italic,
   ),
-  iconTheme: IconThemeData(color: AppColors.textColorDark),
+  iconTheme: IconThemeData(color: Colors.black),
 );
 
 const appBarThemeDark = AppBarTheme(
@@ -37,7 +37,7 @@ const appBarThemeDark = AppBarTheme(
     fontWeight: FontWeight.w900,
     fontStyle: FontStyle.italic,
   ),
-  iconTheme: IconThemeData(color: AppColors.textColorDark),
+  iconTheme: IconThemeData(color: Colors.white),
 );
 
 const bottomNavigationBarThemeLight = BottomNavigationBarThemeData(
@@ -57,58 +57,78 @@ const bottomNavigationBarThemeDark = BottomNavigationBarThemeData(
 );
 
 const textThemeLight = TextTheme(
+  // Für Container-Überschriften
   titleLarge: TextStyle(
     fontSize: 24.0,
     fontWeight: FontWeight.bold,
     color: AppColors.textColorLight,
   ),
+  // Für normalen Text in Containern
   bodyMedium: TextStyle(
-      fontSize: 16.0,
-      fontWeight: FontWeight.normal,
-      color: AppColors.textColorLight),
+    fontSize: 16.0,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textColorLight,
+  ),
 );
 
 const textThemeDark = TextTheme(
+  // Für Container-Überschriften
   titleLarge: TextStyle(
     fontSize: 24.0,
     fontWeight: FontWeight.bold,
     color: AppColors.textColorDark,
   ),
+  // Für normalen Text in Containern
   bodyMedium: TextStyle(
-      fontSize: 16.0,
-      fontWeight: FontWeight.normal,
-      color: AppColors.textColorDark),
+    fontSize: 16.0,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textColorDark,
+  ),
 );
 
 const elevatedButtonThemeLight = ElevatedButtonThemeData(
-    style: ButtonStyle(
-  backgroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
-  foregroundColor: MaterialStatePropertyAll(AppColors.accentColor),
-  textStyle: MaterialStatePropertyAll(
-      TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-  padding: MaterialStatePropertyAll(
-      EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0)),
-));
+  style: ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll(AppColors.accentColor),
+    foregroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
+    textStyle: MaterialStatePropertyAll(
+      TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+    ),
+    padding: MaterialStatePropertyAll(
+      EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+    ),
+  ),
+);
 
 const elevatedButtonThemeDark = ElevatedButtonThemeData(
-    style: ButtonStyle(
-  backgroundColor: MaterialStatePropertyAll(AppColors.accentColor),
-  foregroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
-  textStyle: MaterialStatePropertyAll(
-      TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
-  padding: MaterialStatePropertyAll(
-      EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0)),
-));
+  style: ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll(AppColors.accentColor),
+    foregroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
+    textStyle: MaterialStatePropertyAll(
+      TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+    ),
+    padding: MaterialStatePropertyAll(
+      EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
+    ),
+  ),
+);
 
 const cardThemeLight = CardTheme(
-    color: AppColors.secondaryColorLight,
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0))));
+  color: AppColors.secondaryColorLight,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(8.0),
+    ),
+  ),
+);
 
 const cardThemeDark = CardTheme(
-    color: AppColors.secondaryColorDark,
-    shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(8.0))));
+  color: AppColors.secondaryColorDark,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(8.0),
+    ),
+  ),
+);
 
 const listTileThemeLight = ListTileThemeData(
   titleTextStyle: TextStyle(color: AppColors.textColorDark, fontSize: 16.0),
@@ -126,28 +146,42 @@ const listTileThemeDark = ListTileThemeData(
   contentPadding: EdgeInsets.only(left: 10.0),
 );
 
+const floatingActionButtonThemeLight = FloatingActionButtonThemeData(
+  backgroundColor: AppColors.accentColor,
+);
+
+const floatingActionButtonThemeDark = FloatingActionButtonThemeData(
+  backgroundColor: AppColors.accentColor,
+);
+
 final ThemeData lightTheme = ThemeData(
-    useMaterial3: true,
-    fontFamily: 'Roboto',
-    fontFamilyFallback: const ['sans-serif'],
-    primaryColor: AppColors.primaryColorLight,
-    scaffoldBackgroundColor: AppColors.backgroundColorLight,
-    appBarTheme: appBarThemeLight,
-    bottomNavigationBarTheme: bottomNavigationBarThemeLight,
-    textTheme: textThemeLight,
-    elevatedButtonTheme: elevatedButtonThemeLight,
-    listTileTheme: listTileThemeLight,
-    cardTheme: cardThemeLight);
+  useMaterial3: true,
+  fontFamily: 'Roboto',
+  fontFamilyFallback: const ['sans-serif'],
+  primaryColor: AppColors.primaryColorLight,
+  scaffoldBackgroundColor: AppColors.backgroundColorLight,
+  appBarTheme: appBarThemeLight,
+  bottomNavigationBarTheme: bottomNavigationBarThemeLight,
+  textTheme: textThemeLight,
+  elevatedButtonTheme: elevatedButtonThemeLight,
+  listTileTheme: listTileThemeLight,
+  cardTheme: cardThemeLight,
+  iconTheme: const IconThemeData(color: Colors.black),
+  floatingActionButtonTheme: floatingActionButtonThemeLight,
+);
 
 final ThemeData darkTheme = ThemeData(
-    useMaterial3: true,
-    fontFamily: 'Roboto',
-    fontFamilyFallback: const ['sans-serif'],
-    primaryColor: AppColors.primaryColorDark,
-    scaffoldBackgroundColor: AppColors.backgroundColorDark,
-    appBarTheme: appBarThemeDark,
-    bottomNavigationBarTheme: bottomNavigationBarThemeDark,
-    textTheme: textThemeDark,
-    elevatedButtonTheme: elevatedButtonThemeDark,
-    listTileTheme: listTileThemeDark,
-    cardTheme: cardThemeDark);
+  useMaterial3: true,
+  fontFamily: 'Roboto',
+  fontFamilyFallback: const ['sans-serif'],
+  primaryColor: AppColors.primaryColorDark,
+  scaffoldBackgroundColor: AppColors.backgroundColorDark,
+  appBarTheme: appBarThemeDark,
+  bottomNavigationBarTheme: bottomNavigationBarThemeDark,
+  textTheme: textThemeDark,
+  elevatedButtonTheme: elevatedButtonThemeDark,
+  listTileTheme: listTileThemeDark,
+  cardTheme: cardThemeDark,
+  iconTheme: const IconThemeData(color: Colors.white),
+  floatingActionButtonTheme: floatingActionButtonThemeDark,
+);

@@ -27,8 +27,10 @@ class UpcomingTrainingsWidget extends StatelessWidget {
         Row(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 10.0,
+              ),
               height: screenHeight * 0.25,
               width: screenWidth * 0.85,
               decoration: BoxDecoration(
@@ -36,6 +38,9 @@ class UpcomingTrainingsWidget extends StatelessWidget {
                 boxShadow: const [
                   BoxShadow(color: Colors.black),
                 ],
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
