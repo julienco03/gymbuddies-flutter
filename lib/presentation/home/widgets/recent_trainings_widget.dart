@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 
 class RecentTrainingsWidget extends StatelessWidget {
   const RecentTrainingsWidget({super.key});
@@ -35,9 +34,9 @@ class RecentTrainingsWidget extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
               height: screenHeight * 0.25,
               width: screenWidth * 0.85,
-              decoration: const BoxDecoration(
-                color: AppColors.primaryColor,
-                boxShadow: [
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                boxShadow: const [
                   BoxShadow(color: Colors.black),
                 ],
               ),

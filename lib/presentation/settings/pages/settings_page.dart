@@ -1,26 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/common/widgets/app_bar.dart';
-import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
 
-class CalendarPage extends StatefulWidget {
-  const CalendarPage({super.key});
-
-  @override
-  CalendarPageState createState() => CalendarPageState();
-}
-
-class CalendarPageState extends State<CalendarPage> {
-  final int _currentIndex = 2;
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(kToolbarHeight),
-        child: MyAppBar(),
+      appBar: AppBar(
+        title: const Text('Settings'),
       ),
       body: null,
-      bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
     );
   }
 }
