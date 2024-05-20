@@ -9,10 +9,10 @@ class RecentTrainingsWidget extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     List<String> lastTrainingSessions = const [
-      '3 Days ago | 2.10 Hours | Biking',
-      '5 Days ago | 30 Minutes | Jogging',
-      '15.04.2024 | 1 Hour | Legs',
-      '15.04.2024 | 1 Hour | Legs'
+      '3 days ago | 1:30h | Biking',
+      '5 days ago | 30min | Jogging',
+      '15.04.2024 | 45min | Legs',
+      '12.03.2024 | 2:00h | Swimming'
     ];
 
     return Column(

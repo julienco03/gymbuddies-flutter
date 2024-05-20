@@ -4,19 +4,16 @@ class AppColors {
   static const Color primaryColorLight = Color.fromARGB(255, 170, 168, 168);
   static const Color primaryColorDark = Color(0xFF424242);
 
+  static const Color secondaryColorLight = Color.fromARGB(255, 64, 64, 64);
+  static const Color secondaryColorDark = Color.fromARGB(255, 243, 243, 243);
+
   static const Color accentColor = Color(0xFF12E450);
 
   static const Color backgroundColorLight = Color(0xFFEBEBEB);
   static const Color backgroundColorDark = Color(0xFF303030);
 
   static const Color textColorLight = Color(0xFF303030);
-  static const Color textColorDark = Color(0xFFEBEBEB);
-
-  static const Color buttonTextColorLight = accentColor;
-  static const Color buttonTextColorDark = textColorLight;
-
-  static const Color buttonBackgroundColorLight = textColorLight;
-  static const Color buttonBackgroundColorDark = accentColor;
+  static const Color textColorDark = Color(0xFFFFFFFF);
 }
 
 const appBarThemeLight = AppBarTheme(
@@ -85,9 +82,8 @@ const textThemeDark = TextTheme(
 
 const elevatedButtonThemeLight = ElevatedButtonThemeData(
     style: ButtonStyle(
-  backgroundColor:
-      MaterialStatePropertyAll(AppColors.buttonBackgroundColorLight),
-  foregroundColor: MaterialStatePropertyAll(AppColors.buttonTextColorLight),
+  backgroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
+  foregroundColor: MaterialStatePropertyAll(AppColors.accentColor),
   textStyle: MaterialStatePropertyAll(
       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
   padding: MaterialStatePropertyAll(
@@ -96,14 +92,39 @@ const elevatedButtonThemeLight = ElevatedButtonThemeData(
 
 const elevatedButtonThemeDark = ElevatedButtonThemeData(
     style: ButtonStyle(
-  backgroundColor:
-      MaterialStatePropertyAll(AppColors.buttonBackgroundColorDark),
-  foregroundColor: MaterialStatePropertyAll(AppColors.buttonTextColorDark),
+  backgroundColor: MaterialStatePropertyAll(AppColors.accentColor),
+  foregroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
   textStyle: MaterialStatePropertyAll(
       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
   padding: MaterialStatePropertyAll(
       EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0)),
 ));
+
+const cardThemeLight = CardTheme(
+    color: AppColors.secondaryColorLight,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8.0))));
+
+const cardThemeDark = CardTheme(
+    color: AppColors.secondaryColorDark,
+    shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(8.0))));
+
+const listTileThemeLight = ListTileThemeData(
+  titleTextStyle: TextStyle(color: AppColors.textColorDark, fontSize: 16.0),
+  subtitleTextStyle:
+      TextStyle(color: AppColors.primaryColorLight, fontSize: 14.0),
+  iconColor: AppColors.textColorDark,
+  contentPadding: EdgeInsets.only(left: 10.0),
+);
+
+const listTileThemeDark = ListTileThemeData(
+  titleTextStyle: TextStyle(color: AppColors.textColorLight, fontSize: 16.0),
+  subtitleTextStyle:
+      TextStyle(color: AppColors.primaryColorDark, fontSize: 14.0),
+  iconColor: AppColors.textColorLight,
+  contentPadding: EdgeInsets.only(left: 10.0),
+);
 
 final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
@@ -114,7 +135,9 @@ final ThemeData lightTheme = ThemeData(
     appBarTheme: appBarThemeLight,
     bottomNavigationBarTheme: bottomNavigationBarThemeLight,
     textTheme: textThemeLight,
-    elevatedButtonTheme: elevatedButtonThemeLight);
+    elevatedButtonTheme: elevatedButtonThemeLight,
+    listTileTheme: listTileThemeLight,
+    cardTheme: cardThemeLight);
 
 final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
@@ -125,4 +148,6 @@ final ThemeData darkTheme = ThemeData(
     appBarTheme: appBarThemeDark,
     bottomNavigationBarTheme: bottomNavigationBarThemeDark,
     textTheme: textThemeDark,
-    elevatedButtonTheme: elevatedButtonThemeDark);
+    elevatedButtonTheme: elevatedButtonThemeDark,
+    listTileTheme: listTileThemeDark,
+    cardTheme: cardThemeDark);
