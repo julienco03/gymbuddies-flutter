@@ -32,9 +32,7 @@ class MyApp extends StatelessWidget {
         '/calendar': (context) => const CalendarPage(),
         '/contacts': (context) => const ContactsPage(),
         '/training': (context) => const TrainingPage(),
-        '/training/start': (context) => TrainingStartPage(
-            trainingPlanId:
-                ModalRoute.of(context)!.settings.arguments as String),
+        '/training/start': (context) => const TrainingStartPage(),
       },
     );
   }

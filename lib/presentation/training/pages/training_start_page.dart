@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TrainingStartPage extends StatelessWidget {
-  final String trainingPlanId;
-
-  const TrainingStartPage({super.key, required this.trainingPlanId});
+  const TrainingStartPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
-import 'package:gymbuddies/presentation/training/pages/training_page.dart';
+import 'package:gymbuddies/presentation/training/pages/training_start_page.dart';
 
 class StartTrainingButton extends StatelessWidget {
   const StartTrainingButton({super.key});
@@ -11,9 +11,9 @@ class StartTrainingButton extends StatelessWidget {
       onPressed: () {
         Navigator.pushReplacement(
           context,
-          PageRouteBuilder<TrainingPage>(
+          PageRouteBuilder<TrainingStartPage>(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const TrainingPage(),
+                const TrainingStartPage(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return FadeTransition(
