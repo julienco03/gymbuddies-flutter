@@ -103,7 +103,8 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
                         itemCount: value.length,
                         itemBuilder: (context, index) {
                           return Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
+                            padding:
+                                const EdgeInsets.only(bottom: 10.0, right: 8.0),
                             child: Card(
                               child: ListTile(
                                 title: Text('${value[index]}'),
