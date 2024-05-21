@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/training/pages/start_training_page.dart';
 
 class StartTrainingButton extends StatelessWidget {
   const StartTrainingButton({super.key});

@@ -45,90 +45,84 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          TableCalendar<Event>(
-            firstDay: kFirstDay,
-            lastDay: kLastDay,
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            calendarFormat: _calendarFormat,
-            eventLoader: _getEventsForDay,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            calendarStyle: CalendarStyle(
-              outsideDaysVisible: true,
-              markerDecoration: BoxDecoration(
-                color: Theme.of(context).iconTheme.color,
-                shape: BoxShape.circle,
-              ),
-              selectedTextStyle: const TextStyle(color: Colors.black),
-              selectedDecoration: const BoxDecoration(
-                color: AppColors.accentColor,
-                shape: BoxShape.circle,
-              ),
-              todayTextStyle: const TextStyle(color: Colors.black),
-              todayDecoration: BoxDecoration(
-                color: AppColors.accentColor.withOpacity(0.5),
-                shape: BoxShape.circle,
-              ),
-              defaultTextStyle: TextStyle(
-                color: Theme.of(context).iconTheme.color,
-              ),
-              weekendTextStyle: TextStyle(
-                color: Theme.of(context).iconTheme.color,
-              ),
+    return Column(
+      children: [
+        TableCalendar<Event>(
+          firstDay: kFirstDay,
+          lastDay: kLastDay,
+          focusedDay: _focusedDay,
+          selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+          calendarFormat: _calendarFormat,
+          eventLoader: _getEventsForDay,
+          startingDayOfWeek: StartingDayOfWeek.monday,
+          calendarStyle: CalendarStyle(
+            outsideDaysVisible: true,
+            markerDecoration: BoxDecoration(
+              color: Theme.of(context).iconTheme.color,
+              shape: BoxShape.circle,
             ),
-            headerStyle: const HeaderStyle(
-              formatButtonVisible: false,
-              titleCentered: true,
+            selectedTextStyle: const TextStyle(color: Colors.black),
+            selectedDecoration: const BoxDecoration(
+              color: AppColors.accentColor,
+              shape: BoxShape.circle,
             ),
-            onDaySelected: _onDaySelected,
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
+            todayTextStyle: const TextStyle(color: Colors.black),
+            todayDecoration: BoxDecoration(
+              color: AppColors.accentColor.withOpacity(0.5),
+              shape: BoxShape.circle,
+            ),
+            defaultTextStyle: TextStyle(
+              color: Theme.of(context).iconTheme.color,
+            ),
+            weekendTextStyle: TextStyle(
+              color: Theme.of(context).iconTheme.color,
+            ),
           ),
-          const SizedBox(height: 10.0),
-          Padding(
+          headerStyle: const HeaderStyle(
+            formatButtonVisible: false,
+            titleCentered: true,
+          ),
+          onDaySelected: _onDaySelected,
+          onPageChanged: (focusedDay) {
+            _focusedDay = focusedDay;
+          },
+        ),
+        const SizedBox(height: 10.0),
+        Expanded(
+          child: Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 15.0),
-            child: SizedBox(
-              height: 200.0,
-              child: Scrollbar(
-                thumbVisibility: true,
-                child: Expanded(
-                  child: ValueListenableBuilder<List<Event>>(
-                    valueListenable: _selectedEvents,
-                    builder: (context, value, _) {
-                      return ListView.builder(
-                        itemCount: value.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 10.0, right: 8.0),
-                            child: Card(
-                              child: ListTile(
-                                title: Text('${value[index]}'),
-                                trailing: IconButton(
-                                  iconSize: 28.0,
-                                  icon: const Icon(Icons.play_arrow),
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  onPressed: () {
-                                    // Handle delete action
-                                  },
-                                ),
-                              ),
+            child: Scrollbar(
+              thumbVisibility: true,
+              child: ValueListenableBuilder<List<Event>>(
+                valueListenable: _selectedEvents,
+                builder: (context, value, _) {
+                  return ListView.builder(
+                    itemCount: value.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0, right: 8.0),
+                        child: Card(
+                          child: ListTile(
+                            title: Text('${value[index]}'),
+                            trailing: IconButton(
+                              iconSize: 28.0,
+                              icon: const Icon(Icons.play_arrow),
+                              padding: const EdgeInsets.only(right: 10.0),
+                              onPressed: () {
+                                // Handle delete action
+                              },
                             ),
-                          );
-                        },
+                          ),
+                        ),
                       );
                     },
-                  ),
-                ),
+                  );
+                },
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

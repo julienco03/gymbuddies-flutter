@@ -21,13 +21,16 @@ class CalendarPageState extends State<CalendarPage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: MyAppBar(),
       ),
-      body: const Stack(children: [
-        Padding(
-          padding: EdgeInsets.only(bottom: 80.0),
-          child: EventCalenderWidget(),
+      body: const SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: EventCalenderWidget(),
+            ),
+            AddNewTrainingEventWidget(),
+          ],
         ),
-        AddNewTrainingEventWidget(),
-      ]),
+      ),
       bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
     );
   }
