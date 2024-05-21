@@ -4,7 +4,6 @@ import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dar
 import 'package:gymbuddies/presentation/home/widgets/recent_trainings_widget.dart';
 import 'package:gymbuddies/presentation/home/widgets/start_training_button.dart';
 import 'package:gymbuddies/presentation/home/widgets/upcoming_trainings_widget.dart';
-import 'package:gymbuddies/presentation/training/pages/training_start_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,10 +35,7 @@ class HomePageState extends State<HomePage> {
           ),
           StartTrainingButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const TrainingStartPage()),
-              );
+              Navigator.pushNamed(context, '/training/start');
             },
           ),
         ],
