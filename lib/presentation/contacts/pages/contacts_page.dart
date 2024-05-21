@@ -30,9 +30,7 @@ class ContactsPageState extends State<ContactsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ContactsListWidget(),
-            SizedBox(
-              height: 25.0,
-            ),
+            SizedBox(height: 30.0),
             AddNewContactWidget(),
           ],
         ),

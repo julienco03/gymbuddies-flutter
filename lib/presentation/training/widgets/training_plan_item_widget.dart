@@ -15,22 +15,13 @@ class TrainingPlanItem extends StatelessWidget {
         child: ListTile(
           title: Text(title),
           subtitle: Text(subtitle),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.edit),
-                onPressed: () {
-                  // Handle edit action
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  // Handle delete action
-                },
-              ),
-            ],
+          trailing: IconButton(
+            icon: const Icon(Icons.play_arrow),
+            iconSize: 28.0,
+            onPressed: () {
+              // Handle edit action
+            },
+            padding: const EdgeInsets.only(right: 10.0),
           ),
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/contacts/widgets/contact_item.dart';
+import 'package:gymbuddies/presentation/contacts/widgets/contact_item_widget.dart';
 
 class ContactsListWidget extends StatelessWidget {
   const ContactsListWidget({super.key});

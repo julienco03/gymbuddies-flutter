@@ -108,17 +108,13 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
                             child: Card(
                               child: ListTile(
                                 title: Text('${value[index]}'),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    IconButton(
-                                      iconSize: 27.0,
-                                      icon: const Icon(Icons.play_arrow),
-                                      onPressed: () {
-                                        // Handle delete action
-                                      },
-                                    ),
-                                  ],
+                                trailing: IconButton(
+                                  iconSize: 28.0,
+                                  icon: const Icon(Icons.play_arrow),
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  onPressed: () {
+                                    // Handle delete action
+                                  },
                                 ),
                               ),
                             ),
