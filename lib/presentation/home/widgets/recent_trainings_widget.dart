@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 
 class RecentTrainingsWidget extends StatelessWidget {
   const RecentTrainingsWidget({super.key});
@@ -10,10 +9,10 @@ class RecentTrainingsWidget extends StatelessWidget {
     double screenWidth = MediaQuery.of(context).size.width;
 
     List<String> lastTrainingSessions = const [
-      '3 Days ago | 2.10 Hours | Biking',
-      '5 Days ago | 30 Minutes | Jogging',
-      '15.04.2024 | 1 Hour | Legs',
-      '15.04.2024 | 1 Hour | Legs'
+      '3 days ago | 1:30h | Biking',
+      '5 days ago | 30min | Jogging',
+      '15.04.2024 | 45min | Legs',
+      '12.03.2024 | 2:00h | Swimming'
     ];
 
     return Column(
@@ -31,15 +30,20 @@ class RecentTrainingsWidget extends StatelessWidget {
         Row(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 10.0,
+              ),
               height: screenHeight * 0.25,
               width: screenWidth * 0.85,
-              decoration: const BoxDecoration(
-                color: AppColors.primaryColor,
-                boxShadow: [
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                boxShadow: const [
                   BoxShadow(color: Colors.black),
                 ],
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(10.0),
+                ),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -5,7 +5,7 @@ import 'package:gymbuddies/presentation/home/pages/home_page.dart';
 import 'package:gymbuddies/presentation/training/pages/training_page.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
-  const MyBottomNavigationBar({super.key, required this.currentIndex});
+  const MyBottomNavigationBar({required this.currentIndex, super.key});
 
   final int currentIndex;
 

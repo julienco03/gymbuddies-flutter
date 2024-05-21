@@ -8,13 +8,17 @@ class MyAppBar extends StatelessWidget {
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.settings),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/settings');
+        },
       ),
       title: const Text('Gymbuddies'),
       actions: [
         IconButton(
           icon: const Icon(Icons.account_circle),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/profile');
+          },
         ),
       ],
     );
