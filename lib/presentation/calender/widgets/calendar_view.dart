@@ -89,43 +89,49 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
             },
           ),
           const SizedBox(height: 10.0),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              child: ValueListenableBuilder<List<Event>>(
-                valueListenable: _selectedEvents,
-                builder: (context, value, _) {
-                  return ListView.builder(
-                    itemCount: value.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
-                        child: Card(
-                          child: ListTile(
-                            title: Text('${value[index]}'),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: const Icon(Icons.edit),
-                                  onPressed: () {
-                                    // Handle edit action
-                                  },
+          Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 15.0),
+            child: SizedBox(
+              height: 200.0,
+              child: Scrollbar(
+                thumbVisibility: true,
+                child: Expanded(
+                  child: ValueListenableBuilder<List<Event>>(
+                    valueListenable: _selectedEvents,
+                    builder: (context, value, _) {
+                      return ListView.builder(
+                        itemCount: value.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Card(
+                              child: ListTile(
+                                title: Text('${value[index]}'),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    IconButton(
+                                      icon: const Icon(Icons.edit),
+                                      onPressed: () {
+                                        // Handle edit action
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete),
+                                      onPressed: () {
+                                        // Handle delete action
+                                      },
+                                    ),
+                                  ],
                                 ),
-                                IconButton(
-                                  icon: const Icon(Icons.delete),
-                                  onPressed: () {
-                                    // Handle delete action
-                                  },
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       );
                     },
-                  );
-                },
+                  ),
+                ),
               ),
             ),
           ),
