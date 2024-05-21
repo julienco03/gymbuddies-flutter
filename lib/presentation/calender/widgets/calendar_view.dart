@@ -111,13 +111,8 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     IconButton(
-                                      icon: const Icon(Icons.edit),
-                                      onPressed: () {
-                                        // Handle edit action
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete),
+                                      iconSize: 27.0,
+                                      icon: const Icon(Icons.play_arrow),
                                       onPressed: () {
                                         // Handle delete action
                                       },
