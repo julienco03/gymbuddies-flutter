@@ -8,8 +8,8 @@ import 'presentation/contacts/pages/contacts_page.dart';
 import 'presentation/home/pages/home_page.dart';
 import 'presentation/profile/pages/profile_page.dart';
 import 'presentation/settings/pages/settings_page.dart';
-import 'presentation/training/pages/training_page.dart';
-import 'presentation/training/pages/training_start_page.dart';
+import 'presentation/training/pages/training_plans_page.dart';
+import 'presentation/training/pages/start_training_page.dart';
 
 void main() {
   runApp(const MyApp());

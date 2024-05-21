@@ -33,12 +33,23 @@ class AddNewContactWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding:
+                      const EdgeInsets.only(left: 10.0, right: 10.0, top: 15.0),
                   child: TextField(
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    cursorColor: Theme.of(context).iconTheme.color,
                     decoration: InputDecoration(
                       labelText: emailInputLabel,
                       labelStyle: Theme.of(context).textTheme.bodyMedium,
                       border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: AppColors.accentColor,
+                        ),
                         borderRadius: BorderRadius.all(
                           Radius.circular(10.0),
                         ),

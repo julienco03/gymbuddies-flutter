@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gymbuddies/presentation/calender/pages/calendar_page.dart';
 import 'package:gymbuddies/presentation/contacts/pages/contacts_page.dart';
 import 'package:gymbuddies/presentation/home/pages/home_page.dart';
-import 'package:gymbuddies/presentation/training/pages/training_page.dart';
+import 'package:gymbuddies/presentation/training/pages/training_plans_page.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
   const MyBottomNavigationBar({required this.currentIndex, super.key});
