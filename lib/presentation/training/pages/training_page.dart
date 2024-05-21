@@ -34,22 +34,28 @@ class TrainingPageState extends State<TrainingPage> {
               height: 8.0,
             ),
             Expanded(
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Container(
-                  decoration: BoxDecoration(
+              child: Scrollbar(
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Container(
+                    decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(10.0))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: List.generate(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: List.generate(
                           10,
                           (index) => TrainingPlanItem(
-                                title: 'Training Plan ${index + 1}',
-                                subtitle: '1:30h | last trained: 5 May',
-                              )),
+                            title: 'Training Plan ${index + 1}',
+                            subtitle: '1:30h | last trained: 5 May',
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
