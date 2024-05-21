@@ -4,6 +4,7 @@ import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dar
 import 'package:gymbuddies/presentation/home/widgets/recent_trainings_widget.dart';
 import 'package:gymbuddies/presentation/home/widgets/start_training_button.dart';
 import 'package:gymbuddies/presentation/home/widgets/upcoming_trainings_widget.dart';
+import 'package:gymbuddies/presentation/training/pages/training_start_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,18 +23,25 @@ class HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: MyAppBar(),
       ),
-      body: const Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [UpcomingTrainingsWidget()],
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [RecentTrainingsWidget()],
           ),
-          StartTrainingButton()
+          StartTrainingButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TrainingStartPage()),
+              );
+            },
+          ),
         ],
       ),
       bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
