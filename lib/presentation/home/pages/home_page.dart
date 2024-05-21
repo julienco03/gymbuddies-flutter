@@ -33,7 +33,7 @@ class HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [RecentTrainingsWidget()],
           ),
-          StartTrainingButton()
+          StartTrainingButton(),
         ],
       ),
       bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
