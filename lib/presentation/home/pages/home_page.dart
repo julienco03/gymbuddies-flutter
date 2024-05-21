@@ -22,22 +22,18 @@ class HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: MyAppBar(),
       ),
-      body: Column(
+      body: const Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [UpcomingTrainingsWidget()],
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [RecentTrainingsWidget()],
           ),
-          StartTrainingButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/training/start');
-            },
-          ),
+          StartTrainingButton(),
         ],
       ),
       bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
