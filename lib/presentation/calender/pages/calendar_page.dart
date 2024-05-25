@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gymbuddies/presentation/calender/widgets/add_new_training_event_button.dart';
 import 'package:gymbuddies/presentation/calender/widgets/calendar_view.dart';
 import 'package:gymbuddies/presentation/common/widgets/app_bar.dart';
 import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
@@ -20,25 +21,15 @@ class CalendarPageState extends State<CalendarPage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: MyAppBar(),
       ),
-      body: Stack(children: [
-        const Padding(
-          padding: EdgeInsets.only(bottom: 80.0),
-          child: EventCalenderWidget(),
-        ),
-        Positioned(
-          bottom: 17.0,
-          right: 17.0,
-          child: FloatingActionButton(
-            onPressed: () {
-              // TODO: Bei Klick auf den Plus-Button soll sich eine neue View über der CalenderPage öffnen,
-              // mit der man einen neuen Trainingstermin hinzufügen kann
-              // Das Datum holt man sich hierbei über den ausgewählten Tag
-              // Der neue Termin wird schließlich in der Datenbank gespeichert
-            },
-            child: const Icon(Icons.add), // Hintergrundfarbe des FABs
+      body: const Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 100.0),
+            child: EventCalenderWidget(),
           ),
-        ),
-      ]),
+          AddNewTrainingEventWidget(),
+        ],
+      ),
       bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
     );
   }

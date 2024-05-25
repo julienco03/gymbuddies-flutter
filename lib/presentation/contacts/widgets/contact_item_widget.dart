@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-class TrainingPlanItem extends StatelessWidget {
-  final String title;
-  final String subtitle;
+class ContactItem extends StatelessWidget {
+  final String contactName;
+  final String trainingInformation;
 
-  const TrainingPlanItem(
-      {super.key, required this.title, required this.subtitle});
+  const ContactItem({
+    super.key,
+    required this.contactName,
+    required this.trainingInformation,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +16,13 @@ class TrainingPlanItem extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Card(
         child: ListTile(
-          title: Text(title),
-          subtitle: Text(subtitle),
+          title: Text(contactName),
+          subtitle: Text(trainingInformation),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               IconButton(
-                icon: const Icon(Icons.edit),
+                icon: const Icon(Icons.history),
                 onPressed: () {
                   // Handle edit action
                 },
