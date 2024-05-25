@@ -88,12 +88,12 @@ const textThemeDark = TextTheme(
 
 const elevatedButtonThemeLight = ElevatedButtonThemeData(
   style: ButtonStyle(
-    backgroundColor: WidgetStatePropertyAll(AppColors.accentColor),
-    foregroundColor: WidgetStatePropertyAll(AppColors.textColorLight),
-    textStyle: WidgetStatePropertyAll(
+    backgroundColor: MaterialStatePropertyAll(AppColors.accentColor),
+    foregroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
+    textStyle: MaterialStatePropertyAll(
       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
     ),
-    padding: WidgetStatePropertyAll(
+    padding: MaterialStatePropertyAll(
       EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
     ),
   ),
@@ -101,12 +101,12 @@ const elevatedButtonThemeLight = ElevatedButtonThemeData(
 
 const elevatedButtonThemeDark = ElevatedButtonThemeData(
   style: ButtonStyle(
-    backgroundColor: WidgetStatePropertyAll(AppColors.accentColor),
-    foregroundColor: WidgetStatePropertyAll(AppColors.textColorLight),
-    textStyle: WidgetStatePropertyAll(
+    backgroundColor: MaterialStatePropertyAll(AppColors.accentColor),
+    foregroundColor: MaterialStatePropertyAll(AppColors.textColorLight),
+    textStyle: MaterialStatePropertyAll(
       TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
     ),
-    padding: WidgetStatePropertyAll(
+    padding: MaterialStatePropertyAll(
       EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
     ),
   ),
