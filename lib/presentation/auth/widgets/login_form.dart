@@ -9,8 +9,8 @@ class LoginForm extends StatelessWidget {
   Widget build(BuildContext context) {
     const String welcomeAndLoginText =
         'Welcome back! Enter your\ne-mail and password:';
-    const String emailInputLabel = 'Your E-Mail';
-    const String passwordInputLabel = 'Your Password';
+    const String emailInputLabel = 'E-Mail';
+    const String passwordInputLabel = 'Password';
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -37,7 +37,7 @@ class LoginForm extends StatelessWidget {
                   ),
                   const InputTextField(inputLabel: emailInputLabel),
                   const SizedBox(
-                    height: 8.0,
+                    height: 12.0,
                   ),
                   const InputTextField(inputLabel: passwordInputLabel),
                 ],
