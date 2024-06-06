@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gymbuddies/presentation/training/pages/ongoing_training_page.dart';
+import 'package:gymbuddies/presentation/training/widgets/training_plan_detail_view.dart';
 
 import 'presentation/auth/pages/login_page.dart';
 import 'presentation/auth/pages/signup_page.dart';
@@ -37,6 +39,19 @@ class MyApp extends StatelessWidget {
         '/contacts': (context) => const ContactsPage(),
         '/training': (context) => const TrainingPage(),
         '/training/start': (context) => const TrainingStartPage(),
+        '/training/ongoing-training': (context) => const OngoingTrainingPage(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/training/detail') {
+          final args = settings.arguments as Map<String, dynamic>;
+          final int trainingPlanId = args['trainingPlanId'] as int;
+          return MaterialPageRoute(
+            builder: (context) {
+              return TrainingPlanDetailView(trainingPlanId: trainingPlanId);
+            },
+          );
+        }
+        return null;
       },
     );
   }
