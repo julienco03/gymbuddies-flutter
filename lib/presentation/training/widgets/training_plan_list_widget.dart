@@ -10,7 +10,7 @@ class TrainingPlanListWidget extends StatelessWidget {
       child: Scrollbar(
         thumbVisibility: true,
         child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,

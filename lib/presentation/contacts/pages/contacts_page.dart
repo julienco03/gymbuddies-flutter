@@ -24,7 +24,7 @@ class ContactsPageState extends State<ContactsPage> {
       ),
       body: SingleChildScrollView(
         controller: ScrollController(),
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 15.0),
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,

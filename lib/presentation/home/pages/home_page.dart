@@ -24,7 +24,7 @@ class HomePageState extends State<HomePage> {
       ),
       body: SingleChildScrollView(
         controller: ScrollController(),
-        physics: const AlwaysScrollableScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
