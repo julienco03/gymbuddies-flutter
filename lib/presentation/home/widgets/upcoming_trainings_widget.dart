@@ -5,7 +5,6 @@ class UpcomingTrainingsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
     List<String> upcomingTrainingSessions = const [
@@ -31,7 +30,6 @@ class UpcomingTrainingsWidget extends StatelessWidget {
                 horizontal: 20.0,
                 vertical: 10.0,
               ),
-              height: screenHeight * 0.25,
               width: screenWidth * 0.85,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
@@ -46,9 +44,12 @@ class UpcomingTrainingsWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: upcomingTrainingSessions.map((String text) {
-                  return Text(
-                    text,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Text(
+                      text,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   );
                 }).toList(),
               ),

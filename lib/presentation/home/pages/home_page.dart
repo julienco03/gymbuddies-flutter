@@ -22,19 +22,27 @@ class HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(kToolbarHeight),
         child: MyAppBar(),
       ),
-      body: const Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [UpcomingTrainingsWidget()],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [RecentTrainingsWidget()],
-          ),
-          StartTrainingButton(),
-        ],
+      body: SingleChildScrollView(
+        controller: ScrollController(),
+        physics: const AlwaysScrollableScrollPhysics(),
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SizedBox(height: 10.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [UpcomingTrainingsWidget()],
+            ),
+            SizedBox(height: 20.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [RecentTrainingsWidget()],
+            ),
+            SizedBox(height: 30.0),
+            StartTrainingButton(),
+            SizedBox(height: 20.0),
+          ],
+        ),
       ),
       bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
     );
