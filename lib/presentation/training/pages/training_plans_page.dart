@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gymbuddies/presentation/common/widgets/app_bar.dart';
 import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
+import 'package:gymbuddies/presentation/training/widgets/create_training_plan_button.dart';
 import 'package:gymbuddies/presentation/training/widgets/training_plan_list_widget.dart';
 
 class TrainingPage extends StatefulWidget {
@@ -26,9 +27,13 @@ class TrainingPageState extends State<TrainingPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              _pageTitle,
-              style: Theme.of(context).textTheme.titleLarge,
+            Row(
+              children: [
+                Text(
+                  _pageTitle,
+                  style: Theme.of(context).textTheme.titleLarge,
+                )
+              ],
             ),
             const SizedBox(
               height: 8.0,
@@ -37,6 +42,7 @@ class TrainingPageState extends State<TrainingPage> {
           ],
         ),
       ),
+      floatingActionButton: const CreateTrainingPlanButton(),
       bottomNavigationBar: MyBottomNavigationBar(currentIndex: _currentIndex),
     );
   }
