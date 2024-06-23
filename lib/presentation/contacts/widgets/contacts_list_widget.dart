@@ -40,6 +40,7 @@ class ContactsListWidget extends StatelessWidget {
                         contactName: 'Buddy ${index + 1}',
                         trainingInformation:
                             'Trainings: $index | last trained: 5 May',
+                        contactId: index,
                       ),
                     ),
                   ),

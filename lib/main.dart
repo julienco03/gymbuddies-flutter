@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymbuddies/presentation/contacts/pages/contact_detail_page.dart';
 
 import 'presentation/auth/pages/login_page.dart';
 import 'presentation/auth/pages/signup_page.dart';
+import 'presentation/calender/pages/calendar_detail_page.dart';
 import 'presentation/calender/pages/calendar_page.dart';
 import 'presentation/common/themes/app_theme.dart';
 import 'presentation/contacts/pages/contacts_page.dart';
@@ -40,30 +42,51 @@ final _router = GoRouter(
     GoRoute(
       path: '/calendar',
       builder: (context, state) => const CalendarPage(),
+      routes: [
+        GoRoute(
+          path: 'detail/:trainingSessionId',
+          builder: (context, state) {
+            final trainingSessionId =
+                int.parse(state.pathParameters['trainingSessionId']!);
+            return CalendarDetailPage(trainingSessionId: trainingSessionId);
+          },
+        ),
+      ],
     ),
     GoRoute(
       path: '/contacts',
       builder: (context, state) => const ContactsPage(),
+      routes: [
+        GoRoute(
+          path: 'detail/:contactId',
+          builder: (context, state) {
+            final contactId = int.parse(state.pathParameters['contactId']!);
+            return ContactDetailPage(contactId: contactId);
+          },
+        ),
+      ],
     ),
     GoRoute(
       path: '/training',
       builder: (context, state) => const TrainingPage(),
-    ),
-    GoRoute(
-      path: '/training/start',
-      builder: (context, state) => const TrainingStartPage(),
-    ),
-    GoRoute(
-      path: '/training/ongoing-training',
-      builder: (context, state) => const OngoingTrainingPage(),
-    ),
-    GoRoute(
-      path: '/training/detail/:trainingPlanId',
-      builder: (context, state) {
-        final trainingPlanId =
-            int.parse(state.pathParameters['trainingPlanId']!);
-        return TrainingPlanDetailView(trainingPlanId: trainingPlanId);
-      },
+      routes: [
+        GoRoute(
+          path: 'start',
+          builder: (context, state) => const TrainingStartPage(),
+        ),
+        GoRoute(
+          path: 'ongoing-training',
+          builder: (context, state) => const OngoingTrainingPage(),
+        ),
+        GoRoute(
+          path: 'detail/:trainingPlanId',
+          builder: (context, state) {
+            final trainingPlanId =
+                int.parse(state.pathParameters['trainingPlanId']!);
+            return TrainingPlanDetailView(trainingPlanId: trainingPlanId);
+          },
+        ),
+      ],
     ),
   ],
 );
