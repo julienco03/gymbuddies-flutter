@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gymbuddies/presentation/auth/widgets/login_form.dart';
 
 class LoginPage extends StatelessWidget {
@@ -32,7 +33,7 @@ class LoginPage extends StatelessWidget {
                       decoration: TextDecoration.underline),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.pushNamed(context, '/signup');
+                      context.go('/signup');
                     },
                 ),
               ],

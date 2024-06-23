@@ -14,75 +14,71 @@ import 'presentation/training/pages/training_plans_page.dart';
 import 'presentation/training/pages/start_training_page.dart';
 import 'presentation/training/widgets/training_plan_detail_view.dart';
 
-GoRouter defineRoutes() {
-  return GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const HomePage(),
-      ),
-      GoRoute(
-        path: '/signup',
-        builder: (context, state) => const SignupPage(),
-      ),
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: '/profile',
-        builder: (context, state) => const ProfilePage(),
-      ),
-      GoRoute(
-        path: '/settings',
-        builder: (context, state) => const SettingsPage(),
-      ),
-      GoRoute(
-        path: '/calendar',
-        builder: (context, state) => const CalendarPage(),
-      ),
-      GoRoute(
-        path: '/contacts',
-        builder: (context, state) => const ContactsPage(),
-      ),
-      GoRoute(
-        path: '/training',
-        builder: (context, state) => const TrainingPage(),
-      ),
-      GoRoute(
-        path: '/training/start',
-        builder: (context, state) => const TrainingStartPage(),
-      ),
-      GoRoute(
-        path: '/training/ongoing-training',
-        builder: (context, state) => const OngoingTrainingPage(),
-      ),
-      GoRoute(
-        path: '/training/detail/:trainingPlanId',
-        builder: (context, state) {
-          final trainingPlanId =
-              int.parse(state.pathParameters['trainingPlanId']!);
-          return TrainingPlanDetailView(trainingPlanId: trainingPlanId);
-        },
-      ),
-    ],
-  );
-}
+final _router = GoRouter(
+  initialLocation: '/login',
+  routes: [
+    GoRoute(
+      path: '/home',
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/signup',
+      builder: (context, state) => const SignupPage(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfilePage(),
+    ),
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => const SettingsPage(),
+    ),
+    GoRoute(
+      path: '/calendar',
+      builder: (context, state) => const CalendarPage(),
+    ),
+    GoRoute(
+      path: '/contacts',
+      builder: (context, state) => const ContactsPage(),
+    ),
+    GoRoute(
+      path: '/training',
+      builder: (context, state) => const TrainingPage(),
+    ),
+    GoRoute(
+      path: '/training/start',
+      builder: (context, state) => const TrainingStartPage(),
+    ),
+    GoRoute(
+      path: '/training/ongoing-training',
+      builder: (context, state) => const OngoingTrainingPage(),
+    ),
+    GoRoute(
+      path: '/training/detail/:trainingPlanId',
+      builder: (context, state) {
+        final trainingPlanId =
+            int.parse(state.pathParameters['trainingPlanId']!);
+        return TrainingPlanDetailView(trainingPlanId: trainingPlanId);
+      },
+    ),
+  ],
+);
 
 void main() {
-  final router = defineRoutes();
-  runApp(MyApp(router: router));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final GoRouter router;
-  const MyApp({super.key, required this.router});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerDelegate: router.routerDelegate,
-      routeInformationParser: router.routeInformationParser,
+      routerConfig: _router,
       debugShowCheckedModeBanner: false,
       title: 'Gymbuddies',
       theme: lightTheme,

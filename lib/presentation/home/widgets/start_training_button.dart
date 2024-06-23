@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StartTrainingButton extends StatelessWidget {
   const StartTrainingButton({super.key});
@@ -7,7 +8,7 @@ class StartTrainingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/training/start');
+        context.push('/training/start');
       },
       child: const Text('START TRAINING'),
     );
