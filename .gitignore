@@ -44,3 +44,4 @@ app.*.map.json
 
 # bin folder
 bin/
+.vscode/
