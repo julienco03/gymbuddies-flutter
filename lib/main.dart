@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymbuddies/presentation/training/pages/ongoing_training_page.dart';
 import 'package:gymbuddies/presentation/training/widgets/training_plan_detail_view.dart';
 
@@ -13,8 +14,11 @@ import 'presentation/settings/pages/settings_page.dart';
 import 'presentation/training/pages/training_plans_page.dart';
 import 'presentation/training/pages/start_training_page.dart';
 
+// void main() {
+//   runApp(const MyApp());
+// }
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
