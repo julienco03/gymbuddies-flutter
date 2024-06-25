@@ -1,6 +1,6 @@
 name: gymbuddies
-description: "A new Flutter project."
-publish_to: "none"
+description: "Gymbuddies is a fitness app with focus on working out together developed with Flutter."
+publish_to: "none" 
 version: 1.0.0+1
 
 environment:
@@ -10,8 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  goRouter: ^14.2.0
+  flutter_riverpod: ^2.0.0
   cupertino_icons: ^1.0.6
-  table_calendar: ^3.1.1
+  table_calendar: ^3.1.2
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
