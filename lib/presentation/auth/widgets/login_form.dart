@@ -39,7 +39,7 @@ class LoginForm extends StatelessWidget {
                   const SizedBox(
                     height: 12.0,
                   ),
-                  const InputTextField(inputLabel: passwordInputLabel),
+                  const InputTextField(inputLabel: passwordInputLabel, obscureText: true),
                 ],
               ),
             ),
