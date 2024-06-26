@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MyAppBar extends StatelessWidget {
   const MyAppBar({super.key});
@@ -9,7 +10,7 @@ class MyAppBar extends StatelessWidget {
       leading: IconButton(
         icon: const Icon(Icons.settings),
         onPressed: () {
-          Navigator.pushNamed(context, '/settings');
+          context.push('/settings');
         },
       ),
       title: const Text('Gymbuddies'),
@@ -17,7 +18,7 @@ class MyAppBar extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.account_circle),
           onPressed: () {
-            Navigator.pushNamed(context, '/profile');
+            context.push('/profile');
           },
         ),
       ],

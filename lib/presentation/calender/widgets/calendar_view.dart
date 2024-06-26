@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gymbuddies/presentation/calender/utils/calendar_utils.dart';
 import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -100,7 +101,8 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
                     itemCount: value.length,
                     itemBuilder: (context, index) {
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0, right: 8.0),
+                        padding:
+                            const EdgeInsets.only(bottom: 10.0, right: 8.0),
                         child: Card(
                           child: ListTile(
                             title: Text('${value[index]}'),
@@ -112,6 +114,9 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
                                 // Handle delete action
                               },
                             ),
+                            onTap: () {
+                              context.push('/calendar/detail/$index');
+                            },
                           ),
                         ),
                       );

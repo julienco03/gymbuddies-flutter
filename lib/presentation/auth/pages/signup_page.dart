@@ -7,16 +7,22 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Gymbuddies'),
-          // automaticallyImplyLeading: false,
+      appBar: AppBar(
+        title: const Text('Gymbuddies'),
+      ),
+      body: const SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 70.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SignupForm(),
+            ],
+          ),
         ),
-        body: const Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SignupForm(),
-          ],
-        ));
+      ),
+    );
   }
 }

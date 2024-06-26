@@ -7,7 +7,7 @@ class CreateTrainingPlanButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: () {
-        // TODO: view drüberlegen (pushReplacementNamed) mit der man plan erstellen kann
+        // view pushen mit der man plan erstellen kann
       },
       child: const Icon(Icons.add),
     );
