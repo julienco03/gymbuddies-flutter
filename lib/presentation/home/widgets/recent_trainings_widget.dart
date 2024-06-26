@@ -48,7 +48,7 @@ class RecentTrainingsWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: lastTrainingSessions.map((String text) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
                       text,
                       style: Theme.of(context).textTheme.bodyMedium,
