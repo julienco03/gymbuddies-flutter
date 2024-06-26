@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ContactItem extends StatelessWidget {
   final String contactName;
   final String trainingInformation;
+  final int contactId;
 
   const ContactItem({
     super.key,
     required this.contactName,
     required this.trainingInformation,
+    required this.contactId,
   });
 
   @override
@@ -18,23 +21,15 @@ class ContactItem extends StatelessWidget {
         child: ListTile(
           title: Text(contactName),
           subtitle: Text(trainingInformation),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.history),
-                onPressed: () {
-                  // Handle edit action
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.delete),
-                onPressed: () {
-                  // Handle delete action
-                },
-              ),
-            ],
+          trailing: IconButton(
+            icon: const Icon(Icons.history),
+            onPressed: () {
+              // Handle edit action
+            },
           ),
+          onTap: () {
+            context.push('/contacts/detail/$contactId');
+          },
         ),
       ),
     );

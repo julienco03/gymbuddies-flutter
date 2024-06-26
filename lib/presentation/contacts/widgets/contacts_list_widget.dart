@@ -7,6 +7,7 @@ class ContactsListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String contactsListTitle = 'Buddies';
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,11 +20,11 @@ class ContactsListWidget extends StatelessWidget {
           height: 8.0,
         ),
         SizedBox(
-          height: 300.0,
+          height: screenHeight * 0.4,
           child: Scrollbar(
             thumbVisibility: true,
             child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
@@ -40,6 +41,7 @@ class ContactsListWidget extends StatelessWidget {
                         contactName: 'Buddy ${index + 1}',
                         trainingInformation:
                             'Trainings: $index | last trained: 5 May',
+                        contactId: index,
                       ),
                     ),
                   ),

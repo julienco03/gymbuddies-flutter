@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class TrainingPlanItem extends StatelessWidget {
   final String title;
@@ -23,20 +24,12 @@ class TrainingPlanItem extends StatelessWidget {
             icon: const Icon(Icons.play_arrow),
             iconSize: 28.0,
             onPressed: () {
-              // navigate to ongoing training
-              Navigator.pushNamed(
-                context,
-                '/training/ongoing-training',
-              );
+              context.push('/training/ongoing-training');
             },
             padding: const EdgeInsets.only(right: 10.0),
           ),
           onTap: () {
-            Navigator.pushNamed(
-              context,
-              '/training/detail',
-              arguments: {'trainingPlanId': trainingPlanId},
-            );
+            context.push('/training/detail/$trainingPlanId');
           },
         ),
       ),

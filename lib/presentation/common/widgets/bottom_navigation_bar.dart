@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/calender/pages/calendar_page.dart';
-import 'package:gymbuddies/presentation/contacts/pages/contacts_page.dart';
-import 'package:gymbuddies/presentation/home/pages/home_page.dart';
-import 'package:gymbuddies/presentation/training/pages/training_plans_page.dart';
+import 'package:go_router/go_router.dart';
 
 class MyBottomNavigationBar extends StatelessWidget {
   const MyBottomNavigationBar({required this.currentIndex, super.key});
@@ -10,38 +7,23 @@ class MyBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
 
   void _navigateWithAnimation(BuildContext context, int index) {
-    Widget page;
     if (index != currentIndex) {
       switch (index) {
         case 0:
-          page = const HomePage();
+          context.go('/home');
           break;
         case 1:
-          page = const TrainingPage();
+          context.go('/training');
           break;
         case 2:
-          page = const CalendarPage();
+          context.go('/calendar');
           break;
         case 3:
-          page = const ContactsPage();
+          context.go('/contacts');
           break;
         default:
           return;
       }
-
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder<Widget>(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-          transitionDuration: const Duration(milliseconds: 200),
-        ),
-      );
     }
   }
 

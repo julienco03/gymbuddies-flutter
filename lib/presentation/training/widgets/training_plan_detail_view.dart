@@ -8,7 +8,7 @@ class TrainingPlanDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Push Day'),
+        title: Text('Training Plan ID: $trainingPlanId'),
       ),
       body: null,
     );

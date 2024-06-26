@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SignupButton extends StatelessWidget {
   const SignupButton({super.key});
@@ -7,7 +8,7 @@ class SignupButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/');
+        context.go('/home');
       },
       child: const Text('SIGN UP'),
     );

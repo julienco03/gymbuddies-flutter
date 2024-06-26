@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // Import the async library to use Timer
+import 'package:go_router/go_router.dart';
+import 'dart:async';
 
 import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
 
@@ -7,10 +8,10 @@ class TrainingStartPage extends StatefulWidget {
   const TrainingStartPage({super.key});
 
   @override
-  _TrainingStartPageState createState() => _TrainingStartPageState();
+  TrainingStartPageState createState() => TrainingStartPageState();
 }
 
-class _TrainingStartPageState extends State<TrainingStartPage> {
+class TrainingStartPageState extends State<TrainingStartPage> {
   String? selectedPlan;
   bool isStarted = false;
   bool isPaused = false;
@@ -70,7 +71,7 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            context.pop(context);
           },
         ),
       ),
@@ -81,17 +82,25 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
           children: [
             Text(
               'Elapsed Time: ${elapsed.inMinutes}:${(elapsed.inSeconds % 60).toString().padLeft(2, '0')}',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(color: Colors.white),
             ),
             DropdownButton<String>(
-              dropdownColor: Colors.black, // Set the background color of the dropdown menu
-              hint: const Text('Select Plan', style: TextStyle(color: Colors.white)), // Change the hint text color
+              dropdownColor:
+                  Colors.black, // Set the background color of the dropdown menu
+              hint: const Text('Select Plan',
+                  style: TextStyle(
+                      color: Colors.white)), // Change the hint text color
               value: selectedPlan,
               items: List.generate(
                 10,
                 (index) => DropdownMenuItem(
                   value: 'Training Plan ${index + 1}',
-                  child: Text('Training Plan ${index + 1}', style: const TextStyle(color: Colors.white)), // Change the item text color
+                  child: Text('Training Plan ${index + 1}',
+                      style: const TextStyle(
+                          color: Colors.white)), // Change the item text color
                 ),
               ),
               onChanged: (value) {
@@ -115,7 +124,9 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: selectedPlan != null && (!isStarted || isPaused) ? startTimer : null,
+                  onPressed: selectedPlan != null && (!isStarted || isPaused)
+                      ? startTimer
+                      : null,
                   child: const Text('Start'),
                 ),
                 ElevatedButton(
@@ -131,7 +142,8 @@ class _TrainingStartPageState extends State<TrainingStartPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const MyBottomNavigationBar(currentIndex: 1), // Assuming Training is at index 1
+      bottomNavigationBar: const MyBottomNavigationBar(
+          currentIndex: 1), // Assuming Training is at index 1
     );
   }
 }
