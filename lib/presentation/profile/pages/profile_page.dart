@@ -19,30 +19,34 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _changePassword() {
-    showDialog(
+    showDialog<TextEditingController>(
       context: context,
       builder: (context) {
-        final TextEditingController _oldPasswordController = TextEditingController();
-        final TextEditingController _newPasswordController = TextEditingController();
-        final TextEditingController _confirmNewPasswordController = TextEditingController();
+        final TextEditingController oldPasswordController =
+            TextEditingController();
+        final TextEditingController newPasswordController =
+            TextEditingController();
+        final TextEditingController confirmNewPasswordController =
+            TextEditingController();
         return AlertDialog(
           title: const Text('Change Password'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: _oldPasswordController,
+                controller: oldPasswordController,
                 decoration: const InputDecoration(labelText: 'Old Password'),
                 obscureText: true,
               ),
               TextField(
-                controller: _newPasswordController,
+                controller: newPasswordController,
                 decoration: const InputDecoration(labelText: 'New Password'),
                 obscureText: true,
               ),
               TextField(
-                controller: _confirmNewPasswordController,
-                decoration: const InputDecoration(labelText: 'Confirm New Password'),
+                controller: confirmNewPasswordController,
+                decoration:
+                    const InputDecoration(labelText: 'Confirm New Password'),
                 obscureText: true,
               ),
             ],
@@ -73,13 +77,19 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Name', labelStyle: TextStyle(color: Colors.white),),
-                style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Name',
+                labelStyle: Theme.of(context).textTheme.bodyMedium,
+              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             TextField(
               controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email Address', labelStyle: TextStyle(color: Colors.white),),
-                style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Email Address',
+                labelStyle: Theme.of(context).textTheme.bodyMedium,
+              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             const SizedBox(height: 20),
             ElevatedButton(

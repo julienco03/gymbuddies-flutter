@@ -25,25 +25,31 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             TextFormField(
               controller: _heightController,
-              decoration: const InputDecoration(
-                labelText: 'Height (cm)', labelStyle: TextStyle(color: Colors.white),),
-                style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Height (cm)',
+                labelStyle: Theme.of(context).textTheme.bodyMedium,
+              ),
+              style: Theme.of(context).textTheme.bodyMedium,
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             TextFormField(
               controller: _weightController,
-              decoration: const InputDecoration(
-                labelText: 'Weight (kg)', labelStyle: TextStyle(color: Colors.white),),
-                style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Weight (kg)',
+                labelStyle: Theme.of(context).textTheme.bodyMedium,
+              ),
+              style: Theme.of(context).textTheme.bodyMedium,
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 10),
             TextFormField(
               controller: _ageController,
-              decoration: const InputDecoration(
-                labelText: 'Age', labelStyle: TextStyle(color: Colors.white),),
-                style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                labelText: 'Age',
+                labelStyle: Theme.of(context).textTheme.bodyMedium,
+              ),
+              style: Theme.of(context).textTheme.bodyMedium,
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 20),
