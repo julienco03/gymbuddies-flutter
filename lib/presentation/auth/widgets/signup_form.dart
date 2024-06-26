@@ -46,11 +46,11 @@ class SignupForm extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ),
-                  const InputTextField(inputLabel: passwordInputLabel),
+                  const InputTextField(inputLabel: passwordInputLabel, obscureText: true),
                   const SizedBox(
                     height: 12.0,
                   ),
-                  const InputTextField(inputLabel: repeatPasswordInputLabel),
+                  const InputTextField(inputLabel: repeatPasswordInputLabel, obscureText: true),
                 ],
               ),
             ),

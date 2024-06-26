@@ -3,7 +3,8 @@ import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 
 class InputTextField extends StatelessWidget {
   final String inputLabel;
-  const InputTextField({super.key, required this.inputLabel});
+  final bool obscureText;
+  const InputTextField({super.key, required this.inputLabel, this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class InputTextField extends StatelessWidget {
         ),
       ),
       keyboardType: TextInputType.emailAddress,
+      obscureText: obscureText,
     );
   }
 }
