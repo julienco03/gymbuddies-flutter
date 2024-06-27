@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gymbuddies/database/database_helper.dart';
 import 'package:gymbuddies/presentation/contacts/pages/contact_detail_page.dart';
 
 import 'counter_provider.dart';
@@ -93,12 +94,45 @@ final _router = GoRouter(
   ],
 );
 
-void main() {
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final dbHelper = DatabaseHelper();
+
+  // Optionally clear existing data if you always want to start fresh
+  await dbHelper.clearUpcomingTrainings();
+  await dbHelper.clearRecentTrainings();
+
+  // Insert initial data if not already present
+  await _initializeData(dbHelper);
+
+  runApp(const ProviderScope(child: MyApp()));
+}
+
+Future<void> _initializeData(DatabaseHelper dbHelper) async {
+  List<String> upcomingTrainings = [
+    'In 1 Day: Biking with Tom',
+    'In 4 Days: Chest Day with Harry',
+    'On 05 May: Hiking with Larry',
+    'On 12 June: Swimming with Mike',
+    'On 19 June: Chest with Luke'
+  ];
+
+  List<String> recentTrainings = [
+    '3 days ago | 1:30h | Biking',
+    '5 days ago | 30min | Jogging',
+    '15.04.2024 | 45min | Legs',
+    '12.03.2024 | 2:00h | Swimming',
+    '18.03.2024 | 2:30h | Biking'
+  ];
+
+  // Insert data with duplicate checks
+  for (var training in upcomingTrainings) {
+    await dbHelper.insertUpcomingTraining(training);
+  }
+
+  for (var training in recentTrainings) {
+    await dbHelper.insertRecentTraining(training);
+  }
 }
 
 class MyApp extends ConsumerWidget {
