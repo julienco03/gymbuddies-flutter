@@ -3,12 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:gymbuddies/database/database_helper.dart';
 import 'package:gymbuddies/presentation/contacts/pages/contact_detail_page.dart';
 
-import 'counter_provider.dart';
+import 'theme_provider.dart';
 import 'presentation/auth/pages/login_page.dart';
 import 'presentation/auth/pages/signup_page.dart';
 import 'presentation/calender/pages/calendar_detail_page.dart';
 import 'presentation/calender/pages/calendar_page.dart';
-import 'presentation/common/themes/app_theme.dart';
 import 'presentation/contacts/pages/contacts_page.dart';
 import 'presentation/home/pages/home_page.dart';
 import 'presentation/profile/pages/profile_page.dart';

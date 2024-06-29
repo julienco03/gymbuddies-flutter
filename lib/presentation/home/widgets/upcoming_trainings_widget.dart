@@ -16,16 +16,19 @@ class UpcomingTrainingsWidget extends ConsumerWidget {
       children: [
         Row(
           children: [
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Text('Upcoming', style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
-        const Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 40.0, vertical: 5.0)),
+        const Padding(
+            padding: EdgeInsetsDirectional.symmetric(
+                horizontal: 40.0, vertical: 5.0)),
         upcomingTrainingsAsyncValue.when(
           data: (List<String> upcomingTrainings) {
             if (upcomingTrainings.length <= 4) {
               // No scrolling needed for 4 or less entries
-              return _buildTrainingList(context, upcomingTrainings, screenWidth);
+              return _buildTrainingList(
+                  context, upcomingTrainings, screenWidth);
             } else {
               // Use ListView with horizontal scrolling for more than 4 entries
               return SizedBox(
@@ -43,14 +46,15 @@ class UpcomingTrainingsWidget extends ConsumerWidget {
               );
             }
           },
-          loading: () => CircularProgressIndicator(),
+          loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text('Error: $err'),
         ),
       ],
     );
   }
 
-  Widget _buildTrainingList(BuildContext context, List<String> trainings, double screenWidth) {
+  Widget _buildTrainingList(
+      BuildContext context, List<String> trainings, double screenWidth) {
     return Row(
       children: trainings.map((String text) {
         return Padding(
@@ -66,20 +70,21 @@ class UpcomingTrainingsWidget extends ConsumerWidget {
 
   Widget _buildTrainingItem(BuildContext context, String text, double width) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0), // Adjust horizontal padding here
+      padding: const EdgeInsets.symmetric(
+          vertical: 5.0, horizontal: 5.0), // Adjust horizontal padding here
       child: Container(
         width: width,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor,
-        boxShadow: const [BoxShadow(color: Colors.black)],
-        borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          boxShadow: const [BoxShadow(color: Colors.black)],
+          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
+        ),
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
       ),
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.bodyMedium,
-      ),
-    ),
     );
   }
 }

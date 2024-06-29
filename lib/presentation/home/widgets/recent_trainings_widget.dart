@@ -10,22 +10,29 @@ class RecentTrainingsWidget extends ConsumerWidget {
     final recentTrainingsAsyncValue = ref.watch(recentTrainingProvider);
 
     double screenWidth = MediaQuery.of(context).size.width;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            SizedBox(width: 20),
-            Text('Recent Trainings', style: Theme.of(context).textTheme.titleLarge),
+            const SizedBox(width: 20),
+            Text(
+              'Recent Trainings',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ],
         ),
-        const Padding(padding: EdgeInsetsDirectional.symmetric(horizontal: 40.0, vertical: 5.0)),
+        const Padding(
+          padding:
+              EdgeInsetsDirectional.symmetric(horizontal: 40.0, vertical: 5.0),
+        ),
         recentTrainingsAsyncValue.when(
           data: (List<String> upcomingTrainings) {
             if (upcomingTrainings.length <= 4) {
               // No scrolling needed for 4 or less entries
-              return _buildTrainingList(context, upcomingTrainings, screenWidth);
+              return _buildTrainingList(
+                  context, upcomingTrainings, screenWidth);
             } else {
               // Use ListView with horizontal scrolling for more than 4 entries
               return SizedBox(
@@ -43,14 +50,15 @@ class RecentTrainingsWidget extends ConsumerWidget {
               );
             }
           },
-          loading: () => CircularProgressIndicator(),
+          loading: () => const CircularProgressIndicator(),
           error: (err, stack) => Text('Error: $err'),
         ),
       ],
     );
   }
 
-  Widget _buildTrainingList(BuildContext context, List<String> trainings, double screenWidth) {
+  Widget _buildTrainingList(
+      BuildContext context, List<String> trainings, double screenWidth) {
     return Row(
       children: trainings.map((String text) {
         return Padding(
@@ -66,7 +74,8 @@ class RecentTrainingsWidget extends ConsumerWidget {
 
   Widget _buildTrainingItem(BuildContext context, String text, double width) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0), // Adjust horizontal padding here
+      padding: const EdgeInsets.symmetric(
+          vertical: 5.0, horizontal: 5.0), // Adjust horizontal padding here
       child: Container(
         width: width,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),

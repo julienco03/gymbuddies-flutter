@@ -1,9 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
-final counterProvider = StateProvider<int>((ref) => 0);
-
-
 final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeData>((ref) {
   return ThemeNotifier();
 });
