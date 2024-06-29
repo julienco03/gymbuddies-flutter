@@ -11,6 +11,7 @@ void main() {
 
       final themeNotifier = container.read(themeProvider.notifier);
 
+      themeNotifier.toggleTheme(false);
       expect(container.read(themeProvider), lightTheme);
 
       themeNotifier.toggleTheme(true);
@@ -24,7 +25,7 @@ void main() {
 
       final themeNotifier = container.read(themeProvider.notifier);
 
-      themeNotifier.toggleTheme(true); // Set dark mode first
+      themeNotifier.toggleTheme(true);
       expect(container.read(themeProvider), darkTheme);
 
       themeNotifier.toggleTheme(false);
