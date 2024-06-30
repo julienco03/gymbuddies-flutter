@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../counter_provider.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
+  ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
+class _SettingsPageState extends ConsumerState<SettingsPage> {
   final TextEditingController _heightController = TextEditingController();
   final TextEditingController _weightController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ref.watch(themeProvider) == ThemeData.dark();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -58,13 +61,9 @@ class _SettingsPageState extends State<SettingsPage> {
               children: [
                 const Text('Dark Mode'),
                 Switch(
-                  value: _isDarkMode,
+                  value: isDarkMode,
                   onChanged: (bool value) {
-                    setState(() {
-                      _isDarkMode = value;
-                      // Here you should add the logic to actually change the theme of your app
-                      // This could involve using a Provider, Bloc, or another state management solution
-                    });
+                    ref.read(themeProvider.notifier).toggleTheme(value);
                   },
                 ),
               ],
