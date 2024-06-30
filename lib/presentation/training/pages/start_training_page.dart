@@ -82,25 +82,18 @@ class TrainingStartPageState extends State<TrainingStartPage> {
           children: [
             Text(
               'Elapsed Time: ${elapsed.inMinutes}:${(elapsed.inSeconds % 60).toString().padLeft(2, '0')}',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             DropdownButton<String>(
-              dropdownColor:
-                  Colors.black, // Set the background color of the dropdown menu
-              hint: const Text('Select Plan',
-                  style: TextStyle(
-                      color: Colors.white)), // Change the hint text color
+              hint: Text('Select Plan',
+                  style: Theme.of(context).textTheme.bodyMedium),
               value: selectedPlan,
               items: List.generate(
                 10,
                 (index) => DropdownMenuItem(
                   value: 'Training Plan ${index + 1}',
                   child: Text('Training Plan ${index + 1}',
-                      style: const TextStyle(
-                          color: Colors.white)), // Change the item text color
+                      style: Theme.of(context).textTheme.bodyMedium,),
                 ),
               ),
               onChanged: (value) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../counter_provider.dart';
+import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
+import '../../../theme_provider.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -16,7 +17,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = ref.watch(themeProvider) == ThemeData.dark();
+    final isDarkMode = ref.watch(themeProvider) == darkTheme;
 
     return Scaffold(
       appBar: AppBar(

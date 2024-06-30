@@ -42,7 +42,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# bin folder
+# Other folder
 bin/
 .vscode/
-macos/Flutter/GeneratedPluginRegistrant.swift

@@ -1,20 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-
-final counterProvider = StateProvider<int>((ref) => 0);
-
+import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 
 final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeData>((ref) {
   return ThemeNotifier();
 });
 
 class ThemeNotifier extends StateNotifier<ThemeData> {
-  ThemeNotifier() : super(ThemeData.light());
+  ThemeNotifier() : super(darkTheme);
   void toggleTheme(bool isDarkMode) {
     if (isDarkMode) {
-      state = ThemeData.dark();
+      state = darkTheme;
     } else {
-      state = ThemeData.light();
+      state = lightTheme;
     }
   }
 }
