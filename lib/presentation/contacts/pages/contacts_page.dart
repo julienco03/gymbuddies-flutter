@@ -31,37 +31,12 @@ class ContactsPageState extends ConsumerState<ContactsPage> {
         controller: ScrollController(),
         physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.symmetric(vertical: 17.0, horizontal: 15.0),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            contactsAsyncValue.when(
-              data: (contacts) {
-                return Column(
-                  children: contacts.map((contact) {
-                    return ListTile(
-                      title: Text(contact['name'].toString()),
-                      subtitle: Text(contact['email'].toString()),
-                    );
-                  }).toList(),
-                );
-              },
-              loading: () => const CircularProgressIndicator(),
-              error: (err, stack) => Text('Error: $err'),
-            ),
-            const SizedBox(height: 30.0),
-            AddNewContactWidget(
-              emailController: _emailController,
-              onAdd: () async {
-                if (_emailController.text.isNotEmpty) {
-                  await ref.read(databaseHelperProvider).insertContact(
-                    'New Buddy', // Adjust this to fetch a name if needed
-                    _emailController.text,
-                  );
-                  _emailController.clear();
-                  ref.refresh(contactsProvider);
-                }
-              },
-            ),
+            ContactsListWidget(),
+            SizedBox(height: 30.0),
+            AddNewContactWidget(),
           ],
         ),
       ),
