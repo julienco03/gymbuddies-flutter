@@ -18,20 +18,38 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'gymbuddies.db');
     return openDatabase(
       path,
-      version: 1,
-      onCreate: (db, version) {
-        db.execute('''
+      version: 2,
+      onCreate: (db, version) async {
+        await db.execute('''
           CREATE TABLE upcoming_trainings(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             training TEXT
           )
         ''');
-        db.execute('''
+        await db.execute('''
           CREATE TABLE recent_trainings(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             training TEXT
           )
         ''');
+        await db.execute('''
+          CREATE TABLE contacts(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            email TEXT
+          )
+        ''');
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          await db.execute('''
+            CREATE TABLE contacts(
+              id INTEGER PRIMARY KEY AUTOINCREMENT,
+              name TEXT,
+              email TEXT
+            )
+          ''');
+        }
       },
     );
   }
@@ -63,5 +81,19 @@ class DatabaseHelper {
     return List.generate(maps.length, (int i) {
       return maps[i]['training'] as String;
     });
+  }
+  Future<void> insertContact(String name, String email) async {
+    final db = await database;
+    await db.insert('contacts', {'name': name, 'email': email});
+  }
+
+  Future<List<Map<String, dynamic>>> getContacts() async {
+    final db = await database;
+    return await db.query('contacts');
+  }
+  
+  Future<void> clearContacts() async {
+    final db = await database;
+    await db.delete('contacts');
   }
 }

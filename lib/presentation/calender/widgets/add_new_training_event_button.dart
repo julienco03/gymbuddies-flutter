@@ -1,18 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddNewTrainingEventWidget extends StatelessWidget {
-  const AddNewTrainingEventWidget({super.key});
+class AddNewTrainingEventWidget extends ConsumerWidget {
+  final FutureProvider<List<Map<String, dynamic>>> contactsProvider;
+
+  const AddNewTrainingEventWidget({
+    required this.contactsProvider,
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FloatingActionButton(
-      onPressed: () {
-        // TODO: Bei Klick auf den Plus-Button soll sich eine neue View über der CalenderPage öffnen,
-        // mit der man einen neuen Trainingstermin hinzufügen kann
-        // Das Datum holt man sich hierbei über den ausgewählten Tag
-        // Der neue Termin wird schließlich in der Datenbank gespeichert
+      onPressed: () async {
+        final contactsAsyncValue = ref.read(contactsProvider);
+
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Add New Training Event'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Event Title',
+                    ),
+                  ),
+                  const SizedBox(height: 10.0),
+                  contactsAsyncValue.when(
+                    data: (contacts) {
+                      return DropdownButton<String>(
+                        hint: const Text('Select Buddy'),
+                        items: contacts.map<DropdownMenuItem<String>>((contact) {
+                          return DropdownMenuItem<String>(
+                            value: contact['email'].toString(),
+                            child: Text(contact['name'].toString()),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          // Handle selected buddy
+                        },
+                      );
+                    },
+                    loading: () => const CircularProgressIndicator(),
+                    error: (err, stack) => Text('Error: $err'),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // Handle adding new training event
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Add'),
+                ),
+              ],
+            );
+          },
+        );
       },
-      child: const Icon(Icons.add), // Hintergrundfarbe des FABs
+      child: const Icon(Icons.add),
     );
   }
 }

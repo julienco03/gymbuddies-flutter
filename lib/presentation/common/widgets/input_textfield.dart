@@ -3,8 +3,9 @@ import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 
 class InputTextField extends StatelessWidget {
   final String inputLabel;
+  final TextEditingController? controller;
   final bool obscureText;
-  const InputTextField({super.key, required this.inputLabel, this.obscureText = false});
+  const InputTextField({super.key, required this.inputLabel, this.obscureText = false, this.controller});
 
   @override
   Widget build(BuildContext context) {
