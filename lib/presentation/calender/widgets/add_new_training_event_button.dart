@@ -59,7 +59,7 @@ class AddNewTrainingEventButtonWidget extends ConsumerWidget {
                     // Handle adding new training event
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Add'),
+                  child: const Text('Add', style: TextStyle(color: Colors.green)),
                 ),
               ],
             );

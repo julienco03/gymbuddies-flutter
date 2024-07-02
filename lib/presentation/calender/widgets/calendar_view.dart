@@ -93,7 +93,6 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 15.0),
             child: Scrollbar(
-              thumbVisibility: true,
               child: ValueListenableBuilder<List<Event>>(
                 valueListenable: _selectedEvents,
                 builder: (context, value, _) {

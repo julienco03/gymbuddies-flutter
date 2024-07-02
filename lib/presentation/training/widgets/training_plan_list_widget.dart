@@ -1,39 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:gymbuddies/presentation/training/widgets/training_plan_item_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymbuddies/providers/trainings_plan_provider.dart';
 
-class TrainingPlanListWidget extends StatelessWidget {
+class TrainingPlanListWidget extends ConsumerWidget {
   const TrainingPlanListWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final trainingPlans = ref.watch(trainingPlansProvider);
+
     return Expanded(
-      child: Scrollbar(
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10.0),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  left: 8.0, right: 8.0, top: 8.0, bottom: 100.0),
-              child: Column(
-                children: List.generate(
-                  10,
-                  (index) => TrainingPlanItem(
-                    title: 'Training Plan ${index + 1}',
-                    subtitle: '1:30h | last trained: 5 May',
-                    trainingPlanId: 0,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+      child: ListView.builder(
+        itemCount: trainingPlans.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(trainingPlans[index], style: TextStyle(color: Theme.of(context).primaryColor),),
+          );
+        },
       ),
     );
   }

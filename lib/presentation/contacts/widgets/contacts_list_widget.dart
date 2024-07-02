@@ -25,7 +25,6 @@ class ContactsListWidget extends ConsumerWidget {
         SizedBox(
           height: screenHeight * 0.35,
           child: Scrollbar(
-            thumbVisibility: true,
             child: contactsAsyncValue.when(
               data: (contacts) {
                 return SingleChildScrollView(

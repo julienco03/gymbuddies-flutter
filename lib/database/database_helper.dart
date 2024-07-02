@@ -20,7 +20,8 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'gymbuddies.db');
     return openDatabase(
       path,
-      version: 1,
+      version: 3,
+      onUpgrade: _onUpgrade,
       onCreate: (db, version) {
         db.execute('''
         CREATE TABLE contacts(
@@ -43,17 +44,16 @@ class DatabaseHelper {
             training TEXT
           )
         ''');
+        db.execute('''
+          CREATE TABLE training_plans (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            description TEXT
+          )
+        ''');
       },
-      // onUpgrade: _onUpgrade,
     );
   }
-
-  // Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-  //   if (oldVersion < 2) {
-  //     await db.execute('ALTER TABLE contacts ADD COLUMN trainings INTEGER DEFAULT 0');
-  //     await db.execute('ALTER TABLE contacts ADD COLUMN last_trained TEXT');
-  //   }
-  // }
 
   Future<void> insertContact(String name, String email) async {
     final db = await database;
@@ -118,6 +118,42 @@ class DatabaseHelper {
       return maps[i]['training'] as String;
     });
   }
+
+    Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < newVersion) {
+      await db.execute('''
+        CREATE TABLE IF NOT EXISTS training_plans (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT,
+          description TEXT
+        )
+      ''');
+    }
+  }
+
+  Future<void> insertTrainingPlan(String name, String description) async {
+    final db = await database;
+    await db.insert(
+      'training_plans',
+      {'name': name, 'description': description},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getTrainingPlans() async {
+    final db = await database;
+    return await db.query('training_plans');
+  }
+
+    Future<void> deleteTrainingPlan(int id) async {
+    final db = await database;
+    await db.delete(
+      'training_plans',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
 }
 
 class ContactAlreadyExistsException implements Exception {

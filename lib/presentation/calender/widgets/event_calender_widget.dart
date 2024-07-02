@@ -11,7 +11,6 @@ class EventCalenderWidget extends ConsumerWidget {
     final ScrollController scrollController = ScrollController();
 
     return Scrollbar(
-      thumbVisibility: true,
       controller: scrollController,
       child: ListView.builder(
         controller: scrollController,

@@ -38,7 +38,7 @@ class _AddTrainingEventDialogState extends State<AddTrainingEventDialog> {
             widget.onAdd(_trainingController.text, _selectedDate.toString().split(' ')[0]);
             Navigator.of(context).pop();
           },
-          child: const Text('Add'),
+          child: const Text('Add', style: TextStyle(color: Colors.green)),
         ),
       ],
     );

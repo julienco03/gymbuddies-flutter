@@ -40,7 +40,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
             const SizedBox(height: 20),
             ConstrainedBox(
               constraints: const BoxConstraints(
-                maxHeight: 400,
+                maxHeight: 4000,
               ),
               child: ListView.builder(
                 controller: _scrollController,
