@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddNewTrainingEventWidget extends ConsumerWidget {
+class AddNewTrainingEventButtonWidget extends ConsumerWidget {
   final FutureProvider<List<Map<String, dynamic>>> contactsProvider;
 
-  const AddNewTrainingEventWidget({
+  const AddNewTrainingEventButtonWidget({
     required this.contactsProvider,
     super.key,
   });
