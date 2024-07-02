@@ -4,7 +4,7 @@ import 'package:gymbuddies/presentation/contacts/widgets/contact_item_widget.dar
 import 'package:gymbuddies/providers/contact_provider.dart';
 
 class ContactsListWidget extends ConsumerWidget {
-  const ContactsListWidget({super.key});
+  const ContactsListWidget({super.key, required List<Map<String, dynamic>> contacts});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +23,7 @@ class ContactsListWidget extends ConsumerWidget {
           height: 8.0,
         ),
         SizedBox(
-          height: screenHeight * 0.4,
+          height: screenHeight * 0.35,
           child: Scrollbar(
             thumbVisibility: true,
             child: contactsAsyncValue.when(

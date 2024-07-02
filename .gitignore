@@ -45,3 +45,4 @@ app.*.map.json
 # Other folder
 bin/
 .vscode/
+macos/Flutter/GeneratedPluginRegistrant.swift

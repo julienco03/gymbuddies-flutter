@@ -132,9 +132,6 @@ Future<void> _initializeData(DatabaseHelper dbHelper) async {
   for (var training in recentTrainings) {
     await dbHelper.insertRecentTraining(training);
   }
-
-  await dbHelper.insertContact('Your Name', 'your.email@example.com');
-  await dbHelper.insertContact('Demo Friend', 'demo.friend@example.com');
 }
 
 class MyApp extends ConsumerWidget {

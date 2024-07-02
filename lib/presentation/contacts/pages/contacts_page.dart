@@ -16,6 +16,7 @@ class ContactsPage extends ConsumerStatefulWidget {
 class ContactsPageState extends ConsumerState<ContactsPage> {
   final int _currentIndex = 3;
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +32,19 @@ class ContactsPageState extends ConsumerState<ContactsPage> {
         controller: ScrollController(),
         physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.symmetric(vertical: 17.0, horizontal: 15.0),
-        child: const Column(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ContactsListWidget(),
-            SizedBox(height: 30.0),
-            AddNewContactWidget(),
+            contactsAsyncValue.when(
+              data: (contacts) => ContactsListWidget(contacts: contacts),
+              loading: () => const CircularProgressIndicator(),
+              error: (err, stack) => Text('Error: $err'),
+            ),
+            const SizedBox(height: 10.0),
+            AddNewContactWidget(
+              nameController: _nameController,
+              emailController: _emailController,
+            ),
           ],
         ),
       ),
