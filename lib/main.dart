@@ -126,7 +126,7 @@ Future<void> _initializeData(DatabaseHelper dbHelper) async {
 
   // Insert data with duplicate checks
   for (var training in upcomingTrainings) {
-    await dbHelper.insertUpcomingTraining(training);
+    await dbHelper.insertUpcomingTraining(training, '2024-05-05', null, null);
   }
 
   for (var training in recentTrainings) {

@@ -20,7 +20,7 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'gymbuddies.db');
     return openDatabase(
       path,
-      version: 3,
+      version: 4,
       onUpgrade: _onUpgrade,
       onCreate: (db, version) {
         db.execute('''
@@ -35,7 +35,12 @@ class DatabaseHelper {
         db.execute('''
           CREATE TABLE upcoming_trainings(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            training TEXT
+            training TEXT,
+            date TEXT,
+            training_plan_id INTEGER,
+            contact_id INTEGER,
+            FOREIGN KEY (training_plan_id) REFERENCES training_plans(id),
+            FOREIGN KEY (contact_id) REFERENCES contacts(id)
           )
         ''');
         db.execute('''
@@ -101,9 +106,14 @@ class DatabaseHelper {
     await db.delete('recent_trainings');
   }
 
-  Future<void> insertUpcomingTraining(String training) async {
+  Future<void> insertUpcomingTraining(String training, String date, int? trainingPlanId, int? contactId) async {
     final db = await database;
-    await db.insert('upcoming_trainings', {'training': training});
+    await db.insert('upcoming_trainings', {
+      'training': training,
+      'date': date,
+      'training_plan_id': trainingPlanId,
+      'contact_id': contactId,
+    });
   }
 
   Future<void> insertRecentTraining(String training) async {
@@ -119,16 +129,28 @@ class DatabaseHelper {
     });
   }
 
-    Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < newVersion) {
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 4) {
       await db.execute('''
-        CREATE TABLE IF NOT EXISTS training_plans (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT,
-          description TEXT
-        )
+        ALTER TABLE upcoming_trainings ADD COLUMN date TEXT;
+      ''');
+      await db.execute('''
+        ALTER TABLE upcoming_trainings ADD COLUMN training_plan_id INTEGER;
+      ''');
+      await db.execute('''
+        ALTER TABLE upcoming_trainings ADD COLUMN contact_id INTEGER;
       ''');
     }
+  }
+    
+  Future<List<Map<String, dynamic>>> getUpcomingTrainings() async {
+    final db = await database;
+    return await db.query('upcoming_trainings');
+  }
+
+  Future<void> deleteUpcomingTraining(int id) async {
+    final db = await database;
+    await db.delete('upcoming_trainings', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<void> insertTrainingPlan(String name, String description) async {

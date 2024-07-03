@@ -30,17 +30,16 @@ class UpcomingTrainingsWidget extends ConsumerWidget {
               return _buildTrainingList(
                   context, upcomingTrainings, screenWidth);
             } else {
-              // Use ListView with horizontal scrolling for more than 4 entries
               return SizedBox(
                 width: screenWidth,
-                height: 150, // Adjust height as needed
+                height: 150,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: upcomingTrainings.length,
                   itemBuilder: (context, index) => _buildTrainingItem(
                     context,
                     upcomingTrainings[index],
-                    screenWidth * 0.85, // Adjust container width if needed
+                    screenWidth * 0.85,
                   ),
                 ),
               );
@@ -71,7 +70,7 @@ class UpcomingTrainingsWidget extends ConsumerWidget {
   Widget _buildTrainingItem(BuildContext context, String text, double width) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          vertical: 5.0, horizontal: 5.0), // Adjust horizontal padding here
+          vertical: 5.0, horizontal: 5.0),
       child: Container(
         width: width,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),

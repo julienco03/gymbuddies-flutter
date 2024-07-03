@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymbuddies/presentation/calender/widgets/calendar_view.dart';
 import 'package:gymbuddies/presentation/common/widgets/app_bar.dart';
 import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
+import 'package:gymbuddies/providers/trainings_plan_update_provider.dart';
+import 'package:gymbuddies/database/database_helper.dart';
+import '../widgets/add_training_event_dialog.dart';
 import 'package:gymbuddies/providers/upcoming_trainings_provider.dart';
-import '../utils/add_training_event_dialog.dart';
 
 class CalendarPage extends ConsumerStatefulWidget {
   const CalendarPage({super.key});
@@ -49,6 +51,13 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text(upcomingTrainings[index]),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () async {
+                        await DatabaseHelper().deleteUpcomingTraining(upcomingTrainings[index] as int);
+                        ref.refresh(trainingPlanUpdateProvider);
+                      },
+                    ),
                   );
                 },
               ),
@@ -68,8 +77,16 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AddTrainingEventDialog(onAdd: (training, date) {
-          ref.read(upcomingTrainingsProvider.notifier).addTraining('$training on $date');
+        return AddTrainingEventDialog(onAdd: (training, date, trainingPlan, contact) {
+          ref.read(upcomingTrainingsProvider.notifier).addTraining(
+            trainingPlan != null && contact != null
+                ? '$training on $date with $trainingPlan and $contact'
+                : trainingPlan != null
+                    ? '$training on $date with $trainingPlan'
+                    : contact != null
+                        ? '$training on $date with $contact'
+                        : '$training on $date',
+          );
         });
       },
     );
