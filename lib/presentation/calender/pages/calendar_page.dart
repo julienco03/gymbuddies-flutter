@@ -1,12 +1,15 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymbuddies/presentation/calender/utils/calendar_utils.dart';
 import 'package:gymbuddies/presentation/calender/widgets/calendar_view.dart';
 import 'package:gymbuddies/presentation/common/widgets/app_bar.dart';
 import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
-import 'package:gymbuddies/providers/trainings_plan_update_provider.dart';
 import 'package:gymbuddies/database/database_helper.dart';
-import '../widgets/add_training_event_dialog.dart';
 import 'package:gymbuddies/providers/upcoming_trainings_provider.dart';
+import 'package:table_calendar/table_calendar.dart';
+import '../widgets/add_training_event_dialog.dart';
 
 class CalendarPage extends ConsumerStatefulWidget {
   const CalendarPage({super.key});
@@ -17,6 +20,35 @@ class CalendarPage extends ConsumerStatefulWidget {
 
 class _CalendarPageState extends ConsumerState<CalendarPage> {
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<State<EventCalenderWidget>> _calendarKey = GlobalKey<State<EventCalenderWidget>>();
+  Map<DateTime, List<Event>> _events = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadEvents();
+  }
+
+  Future<void> _loadEvents() async {
+    final dbHelper = DatabaseHelper();
+    final upcomingTrainings = await dbHelper.getUpcomingTrainings();
+    setState(() {
+      _events = LinkedHashMap<DateTime, List<Event>>(
+        equals: isSameDay,
+        hashCode: getHashCode,
+      );
+      for (var training in upcomingTrainings) {
+        final date = training['date'] as DateTime;
+        final id = training['id'] as int;
+        final event = Event(id, '${training['training']}');
+        if (_events[date] != null) {
+          _events[date]!.add(event);
+        } else {
+          _events[date] = [event];
+        }
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -35,9 +67,13 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 500,
-              child: EventCalenderWidget(),
+              child: EventCalenderWidget(
+                key: _calendarKey,
+                events: _events,
+              
+              ),
             ),
             const SizedBox(height: 20),
             ConstrainedBox(
@@ -49,13 +85,16 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
                 shrinkWrap: true,
                 itemCount: upcomingTrainings.length,
                 itemBuilder: (context, index) {
+                  final training = upcomingTrainings[index];
                   return ListTile(
-                    title: Text(upcomingTrainings[index]),
+                    title: Text(training['training' as int]),
+                    subtitle: Text('On ${training['date' as int]}'),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                       onPressed: () async {
-                        await DatabaseHelper().deleteUpcomingTraining(upcomingTrainings[index] as int);
-                        ref.refresh(trainingPlanUpdateProvider);
+                        await DatabaseHelper().deleteUpcomingTraining(training['id' as int] as int);
+                        _loadEvents();
+                        ref.refresh(upcomingTrainingsProvider);
                       },
                     ),
                   );
@@ -69,7 +108,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
         onPressed: () => _showAddTrainingDialog(context, ref),
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: MyBottomNavigationBar(currentIndex: 2),
+      bottomNavigationBar: const MyBottomNavigationBar(currentIndex: 2),
     );
   }
 
@@ -77,16 +116,10 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
     showDialog(
       context: context,
       builder: (context) {
-        return AddTrainingEventDialog(onAdd: (training, date, trainingPlan, contact) {
-          ref.read(upcomingTrainingsProvider.notifier).addTraining(
-            trainingPlan != null && contact != null
-                ? '$training on $date with $trainingPlan and $contact'
-                : trainingPlan != null
-                    ? '$training on $date with $trainingPlan'
-                    : contact != null
-                        ? '$training on $date with $contact'
-                        : '$training on $date',
-          );
+        return AddTrainingEventDialog(onAdd: (training, date, trainingPlan, contact) async {
+          await DatabaseHelper().insertUpcomingTraining(training, date, trainingPlan, contact);
+          await _loadEvents();
+          ref.refresh(upcomingTrainingsProvider);
         });
       },
     );

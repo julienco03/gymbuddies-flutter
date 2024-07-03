@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymbuddies/database/database_helper.dart';
 
 class AddTrainingEventDialog extends ConsumerStatefulWidget {
-  final Function(String training, String date, String? trainingPlan, String? contact) onAdd;
+  final Function(String training, String date, int? trainingPlanId, int? contactId) onAdd;
 
-  const AddTrainingEventDialog({required this.onAdd, Key? key}) : super(key: key);
+  const AddTrainingEventDialog({required this.onAdd, super.key});
 
   @override
   _AddTrainingEventDialogState createState() => _AddTrainingEventDialogState();
@@ -15,8 +15,8 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
   final TextEditingController _trainingController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
 
-  String? _selectedTrainingPlan;
-  String? _selectedContact;
+  int? _selectedTrainingPlanId;
+  int? _selectedContactId;
 
   List<Map<String, dynamic>> _trainingPlans = [];
   List<Map<String, dynamic>> _contacts = [];
@@ -47,37 +47,41 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
         child: Column(
           children: [
             const SizedBox(height: 20),
+            TextField(
+              controller: _trainingController,
+              decoration: const InputDecoration(labelText: 'Training'),
+            ),
             Text('Selected date: ${_selectedDate.toLocal()}'.split(' ')[0]),
             ElevatedButton(
               onPressed: _selectDate,
               child: const Text('Select date'),
             ),
-            DropdownButton<String>(
-              value: _selectedTrainingPlan,
+            DropdownButton<int>(
+              value: _selectedTrainingPlanId,
               hint: const Text('Select Training Plan'),
-              onChanged: (String? newValue) {
+              onChanged: (int? newValue) {
                 setState(() {
-                  _selectedTrainingPlan = newValue;
+                  _selectedTrainingPlanId = newValue;
                 });
               },
-              items: _trainingPlans.map<DropdownMenuItem<String>>((plan) {
-                return DropdownMenuItem<String>(
-                  value: plan['name'].toString(),
-                  child: Text(plan['name'].toString(),
-                ));
+              items: _trainingPlans.map<DropdownMenuItem<int>>((plan) {
+                return DropdownMenuItem<int>(
+                  value: plan['id'] as int,
+                  child: Text(plan['name'].toString()),
+                );
               }).toList(),
             ),
-            DropdownButton<String>(
-              value: _selectedContact,
+            DropdownButton<int>(
+              value: _selectedContactId,
               hint: const Text('Select Contact'),
-              onChanged: (String? newValue) {
+              onChanged: (int? newValue) {
                 setState(() {
-                  _selectedContact = newValue;
+                  _selectedContactId = newValue;
                 });
               },
-              items: _contacts.map<DropdownMenuItem<String>>((contact) {
-                return DropdownMenuItem<String>(
-                  value: contact['name'].toString(),
+              items: _contacts.map<DropdownMenuItem<int>>((contact) {
+                return DropdownMenuItem<int>(
+                  value: contact['id'] as int,
                   child: Text(contact['name'].toString()),
                 );
               }).toList(),
@@ -97,8 +101,8 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
             widget.onAdd(
               _trainingController.text,
               _selectedDate.toString().split(' ')[0],
-              _selectedTrainingPlan,
-              _selectedContact,
+              _selectedTrainingPlanId,
+              _selectedContactId,
             );
             Navigator.of(context).pop();
           },
@@ -120,10 +124,11 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
         _selectedDate = picked;
       });
     }
-      @override
-      void dispose() {
-        _trainingController.dispose();
-        super.dispose();
   }
+
+  @override
+  void dispose() {
+    _trainingController.dispose();
+    super.dispose();
   }
 }

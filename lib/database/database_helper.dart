@@ -107,13 +107,15 @@ class DatabaseHelper {
   }
 
   Future<void> insertUpcomingTraining(String training, String date, int? trainingPlanId, int? contactId) async {
-    final db = await database;
-    await db.insert('upcoming_trainings', {
-      'training': training,
-      'date': date,
-      'training_plan_id': trainingPlanId,
-      'contact_id': contactId,
-    });
+      final db = await database;
+      await db.insert('upcoming_trainings', {
+        'training': training,
+        'date': date,
+        'training_plan_id': trainingPlanId,
+        'contact_id': contactId,
+      },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
   }
 
   Future<void> insertRecentTraining(String training) async {
@@ -145,7 +147,16 @@ class DatabaseHelper {
     
   Future<List<Map<String, dynamic>>> getUpcomingTrainings() async {
     final db = await database;
-    return await db.query('upcoming_trainings');
+    final List<Map<String, dynamic>> result = await db.query('upcoming_trainings');
+    return result.map((row) {
+      return {
+        'id': row['id'],
+        'training': row['training'],
+        'date': DateTime.parse(row['date'].toString()),
+        'training_plan_id': row['training_plan_id'],
+        'contact_id': row['contact_id'],
+      };
+    }).toList();
   }
 
   Future<void> deleteUpcomingTraining(int id) async {
