@@ -1,6 +1,3 @@
-import 'dart:collection';
-import 'package:table_calendar/table_calendar.dart';
-
 class Event {
   final int id;
   final String title;

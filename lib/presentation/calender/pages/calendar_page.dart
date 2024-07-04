@@ -117,7 +117,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
       context: context,
       builder: (context) {
         return AddTrainingEventDialog(onAdd: (training, date, trainingPlan, contact) async {
-          await DatabaseHelper().insertUpcomingTraining(training, date, trainingPlan, contact);
+          await DatabaseHelper().insertUpcomingTraining(training, date, trainingPlan!, contact);
           await _loadEvents();
           ref.refresh(upcomingTrainingsProvider);
         });

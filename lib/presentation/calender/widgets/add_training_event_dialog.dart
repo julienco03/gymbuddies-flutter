@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymbuddies/database/database_helper.dart';
+import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 
 class AddTrainingEventDialog extends ConsumerStatefulWidget {
   final Function(String training, String date, int? trainingPlanId, int? contactId) onAdd;
@@ -42,26 +43,33 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add Training Event'),
+      title: const Text('Add Training Event', style: TextStyle(color: Colors.green)),
       content: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 20),
             TextField(
               controller: _trainingController,
-              decoration: const InputDecoration(labelText: 'Training'),
+              decoration: const InputDecoration(
+                labelText: 'Training',
+                labelStyle: TextStyle(color: AppColors.accentColor),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.accentColor),
+                ),
+              ),
+              cursorColor: Theme.of(context).iconTheme.color,
             ),
             Text('Selected date: ${_selectedDate.toLocal()}'.split(' ')[0]),
             ElevatedButton(
               onPressed: _selectDate,
-              child: const Text('Select date'),
+              child: const Text('Select date', style: TextStyle(color: Colors.green)),
             ),
             DropdownButton<int>(
               value: _selectedTrainingPlanId,
-              hint: const Text('Select Training Plan'),
+              hint: const Text('Select Training Plan', style: TextStyle(color: Colors.green)),
               onChanged: (int? newValue) {
                 setState(() {
-                  _selectedTrainingPlanId = newValue;
+                  _selectedTrainingPlanId = newValue!;
                 });
               },
               items: _trainingPlans.map<DropdownMenuItem<int>>((plan) {
@@ -73,7 +81,7 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
             ),
             DropdownButton<int>(
               value: _selectedContactId,
-              hint: const Text('Select Contact'),
+              hint: const Text('Select Contact', style: TextStyle(color: Colors.green)),
               onChanged: (int? newValue) {
                 setState(() {
                   _selectedContactId = newValue;
@@ -98,6 +106,12 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
         ),
         TextButton(
           onPressed: () {
+            if (_trainingController.text.isEmpty || _selectedTrainingPlanId == null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Please fill all required fields')),
+              );
+              return;
+            }
             widget.onAdd(
               _trainingController.text,
               _selectedDate.toString().split(' ')[0],

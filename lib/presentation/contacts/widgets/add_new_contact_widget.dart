@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gymbuddies/database/database_helper.dart';
@@ -10,10 +9,10 @@ class AddNewContactWidget extends ConsumerWidget {
   final TextEditingController emailController;
 
   const AddNewContactWidget({
-    Key? key,
+    super.key,
     required this.nameController,
     required this.emailController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -96,7 +95,7 @@ class AddNewContactWidget extends ConsumerWidget {
                       ),
                     ],
                   ),
-                ),        
+                ),
               ],
             ),
           ),

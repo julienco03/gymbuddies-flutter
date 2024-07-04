@@ -106,14 +106,16 @@ class DatabaseHelper {
     await db.delete('recent_trainings');
   }
 
-  Future<void> insertUpcomingTraining(String training, String date, int? trainingPlanId, int? contactId) async {
+  Future<void> insertUpcomingTraining(String training, String date, int trainingPlanId, int? contactId) async {
       final db = await database;
-      await db.insert('upcoming_trainings', {
-        'training': training,
-        'date': date,
-        'training_plan_id': trainingPlanId,
-        'contact_id': contactId,
-      },
+      await db.insert(
+        'upcoming_trainings',
+        {
+          'training': training,
+          'date': date,
+          'training_plan_id': trainingPlanId,
+          'contact_id': contactId,
+        },
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
   }
