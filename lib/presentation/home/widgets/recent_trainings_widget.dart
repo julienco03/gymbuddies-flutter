@@ -37,14 +37,14 @@ class RecentTrainingsWidget extends ConsumerWidget {
               // Use ListView with horizontal scrolling for more than 4 entries
               return SizedBox(
                 width: screenWidth,
-                height: 150, // Adjust height as needed
+                height: 150,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   itemCount: upcomingTrainings.length,
                   itemBuilder: (context, index) => _buildTrainingItem(
                     context,
                     upcomingTrainings[index],
-                    screenWidth * 0.85, // Adjust container width if needed
+                    screenWidth * 0.85,
                   ),
                 ),
               );

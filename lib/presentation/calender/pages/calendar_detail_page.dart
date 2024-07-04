@@ -13,7 +13,7 @@ class CalendarDetailPageState extends State<CalendarDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CalendarDetailView(trainingSessionId: widget.trainingSessionId),
+      body: CalendarDetailView(trainingSessionId: widget.trainingSessionId, date: DateTime.now(), contact: '', trainingPlan: '',),
     );
   }
 }

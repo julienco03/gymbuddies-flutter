@@ -20,7 +20,7 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'gymbuddies.db');
     return openDatabase(
       path,
-      version: 4,
+      version: 5,
       onUpgrade: _onUpgrade,
       onCreate: (db, version) {
         db.execute('''
@@ -106,6 +106,11 @@ class DatabaseHelper {
     await db.delete('recent_trainings');
   }
 
+    Future<List<Map<String, dynamic>>> getRecentTrainings() async {
+    final db = await database;
+    return await db.query('contacts');
+  }
+
   Future<void> insertUpcomingTraining(String training, String date, int trainingPlanId, int? contactId) async {
       final db = await database;
       await db.insert(
@@ -134,31 +139,26 @@ class DatabaseHelper {
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < 4) {
-      await db.execute('''
-        ALTER TABLE upcoming_trainings ADD COLUMN date TEXT;
-      ''');
-      await db.execute('''
-        ALTER TABLE upcoming_trainings ADD COLUMN training_plan_id INTEGER;
-      ''');
-      await db.execute('''
-        ALTER TABLE upcoming_trainings ADD COLUMN contact_id INTEGER;
-      ''');
+    if (oldVersion < 5) {
+      await 
+        db.execute('''
+          CREATE TABLE training_event_plans (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            training TEXT,
+            date TEXT,
+            training_plan_id INTEGER,
+            contact_id INTEGER,
+            FOREIGN KEY (training_plan_id) REFERENCES training_plans(id),
+            FOREIGN KEY (contact_id) REFERENCES contacts(id)
+          )
+        ''');
     }
   }
     
   Future<List<Map<String, dynamic>>> getUpcomingTrainings() async {
     final db = await database;
-    final List<Map<String, dynamic>> result = await db.query('upcoming_trainings');
-    return result.map((row) {
-      return {
-        'id': row['id'],
-        'training': row['training'],
-        'date': DateTime.parse(row['date'].toString()),
-        'training_plan_id': row['training_plan_id'],
-        'contact_id': row['contact_id'],
-      };
-    }).toList();
+    final upcomingTrainings = await db.query('upcoming_trainings');
+    return upcomingTrainings;
   }
 
   Future<void> deleteUpcomingTraining(int id) async {

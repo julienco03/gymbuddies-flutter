@@ -52,7 +52,7 @@ class AddNewTrainingEventButtonWidget extends ConsumerWidget {
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
+                  child: const Text('Cancel', style: TextStyle(color: Colors.green)),
                 ),
                 TextButton(
                   onPressed: () {

@@ -4,7 +4,7 @@ import 'package:gymbuddies/database/database_helper.dart';
 import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 
 class AddTrainingEventDialog extends ConsumerStatefulWidget {
-  final Function(String training, String date, int? trainingPlanId, int? contactId) onAdd;
+  final Function(String training, String date, int trainingPlanId, int? contactId) onAdd;
 
   const AddTrainingEventDialog({required this.onAdd, super.key});
 
@@ -108,14 +108,14 @@ class _AddTrainingEventDialogState extends ConsumerState<AddTrainingEventDialog>
           onPressed: () {
             if (_trainingController.text.isEmpty || _selectedTrainingPlanId == null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Please fill all required fields')),
+                const SnackBar(content: Text('Please fill all required fields', style: TextStyle(color: Colors.green))),
               );
               return;
             }
             widget.onAdd(
               _trainingController.text,
               _selectedDate.toString().split(' ')[0],
-              _selectedTrainingPlanId,
+              _selectedTrainingPlanId!,
               _selectedContactId,
             );
             Navigator.of(context).pop();
