@@ -17,7 +17,7 @@ class UpcomingTrainingsWidget extends ConsumerWidget {
         Row(
           children: [
             const SizedBox(width: 20),
-            Text('Upcoming', style: Theme.of(context).textTheme.titleLarge),
+            Text('Upcoming Trainings', style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         const Padding(

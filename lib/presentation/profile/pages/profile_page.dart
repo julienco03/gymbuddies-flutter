@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 // Add logic to change password
                 Navigator.of(context).pop();
               },
-              child: const Text('Change'),
+              child: const Text('Change', style: TextStyle(color: Colors.green)),
             ),
           ],
         );

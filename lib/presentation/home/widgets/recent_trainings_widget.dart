@@ -17,7 +17,7 @@ class RecentTrainingsWidget extends ConsumerWidget {
         Row(
           children: [
             const SizedBox(width: 20),
-            Text('Recent', style: Theme.of(context).textTheme.titleLarge),
+            Text('Recent Trainings', style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         const Padding(
