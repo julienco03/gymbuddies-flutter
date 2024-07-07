@@ -106,7 +106,7 @@ class DatabaseHelper {
     await db.delete('recent_trainings');
   }
 
-    Future<List<Map<String, dynamic>>> getRecentTrainings() async {
+  Future<List<Map<String, dynamic>>> getRecentTrainings() async {
     final db = await database;
     return await db.query('contacts');
   }
@@ -129,6 +129,13 @@ class DatabaseHelper {
     final db = await database;
     await db.insert('recent_trainings', {'training': training});
   }
+
+  Future<List<Map<String, Object?>>> getRecentTraining() async {
+    final db = await database;
+    final result = await db.query('recent_trainings', orderBy: 'id DESC', limit: 10);
+    return result;
+  }
+
 
   Future<List<String>> getTrainings(String tableName) async {
     final db = await database;

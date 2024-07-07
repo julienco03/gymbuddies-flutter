@@ -5,11 +5,6 @@ final upcomingTrainingProvider = StateNotifierProvider<UpcomingTrainingNotifier,
   return UpcomingTrainingNotifier();
 });
 
-final recentTrainingProvider = FutureProvider<List<String>>((ref) async {
-  final dbHelper = DatabaseHelper();
-  return await dbHelper.getTrainings('recent_trainings');
-});
-
 class UpcomingTrainingNotifier extends StateNotifier<AsyncValue<List<String>>> {
   UpcomingTrainingNotifier() : super(const AsyncValue.loading()) {
     fetchUpcomingTrainings();

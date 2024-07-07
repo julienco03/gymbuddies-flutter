@@ -31,12 +31,16 @@ class HomePageState extends State<HomePage> {
             SizedBox(height: 10.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [UpcomingTrainingsWidget()],
+              children: [
+                Expanded(child: UpcomingTrainingsWidget()),
+              ],
             ),
             SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [RecentTrainingsWidget()],
+              children: [
+                Expanded(child: RecentTrainingsWidget()),
+              ],
             ),
             SizedBox(height: 30.0),
             StartTrainingButton(),
