@@ -1,29 +1,12 @@
-import 'dart:collection';
-import 'package:table_calendar/table_calendar.dart';
-
 class Event {
+  final int id;
   final String title;
 
-  const Event(this.title);
+  const Event(this.id, this.title);
 
   @override
   String toString() => title;
 }
-
-final kEvents = LinkedHashMap<DateTime, List<Event>>(
-  equals: isSameDay,
-  hashCode: getHashCode,
-)..addAll(_kEventSource);
-
-final _kEventSource = {
-  kToday: [
-    const Event('Chest Day with Tom | 9am'),
-    const Event('Biking with Max | 4:30pm'),
-    const Event('Swimming with Bob | 7:10pm'),
-    const Event('Meditation | 11pm'),
-    const Event('Sleeping | 12pm'),
-  ],
-};
 
 int getHashCode(DateTime key) {
   return key.day * 1000000 + key.month * 10000 + key.year;

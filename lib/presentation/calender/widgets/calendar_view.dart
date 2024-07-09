@@ -3,9 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:gymbuddies/presentation/calender/utils/calendar_utils.dart';
 import 'package:gymbuddies/presentation/common/themes/app_theme.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:gymbuddies/database/database_helper.dart';
 
 class EventCalenderWidget extends StatefulWidget {
-  const EventCalenderWidget({super.key});
+  final Map<DateTime, List<Event>> events;
+  const EventCalenderWidget({required super.key, required this.events});
 
   @override
   State<EventCalenderWidget> createState() => _EventCalenderWidgetState();
@@ -31,7 +33,7 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
   }
 
   List<Event> _getEventsForDay(DateTime day) {
-    return kEvents[day] ?? [];
+    return widget.events[day] ?? [];
   }
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -42,6 +44,14 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
       });
       _selectedEvents.value = _getEventsForDay(selectedDay);
     }
+  }
+
+  Future<void> _deleteEvent(int eventId, DateTime eventDate) async {
+    await DatabaseHelper().deleteUpcomingTraining(eventId);
+    setState(() {
+      widget.events[eventDate]?.removeWhere((event) => event.id == eventId);
+      _selectedEvents.value = _getEventsForDay(_selectedDay!);
+    });
   }
 
   @override
@@ -93,26 +103,23 @@ class _EventCalenderWidgetState extends State<EventCalenderWidget> {
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0, right: 15.0),
             child: Scrollbar(
-              thumbVisibility: true,
               child: ValueListenableBuilder<List<Event>>(
                 valueListenable: _selectedEvents,
                 builder: (context, value, _) {
                   return ListView.builder(
                     itemCount: value.length,
                     itemBuilder: (context, index) {
+                      final event = value[index];
                       return Padding(
-                        padding:
-                            const EdgeInsets.only(bottom: 10.0, right: 8.0),
+                        padding: const EdgeInsets.only(bottom: 10.0, right: 8.0),
                         child: Card(
                           child: ListTile(
                             title: Text('${value[index]}'),
                             trailing: IconButton(
                               iconSize: 28.0,
-                              icon: const Icon(Icons.play_arrow),
+                              icon: const Icon(Icons.delete),
                               padding: const EdgeInsets.only(right: 10.0),
-                              onPressed: () {
-                                // Handle delete action
-                              },
+                              onPressed: () => _deleteEvent(event.id, _selectedDay!),
                             ),
                             onTap: () {
                               context.push('/calendar/detail/$index');

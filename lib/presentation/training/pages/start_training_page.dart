@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:async';
-
+import 'package:gymbuddies/database/database_helper.dart';
 import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dart';
+import 'package:gymbuddies/providers/recent_training_provider.dart';
 
-class TrainingStartPage extends StatefulWidget {
+class TrainingStartPage extends ConsumerStatefulWidget {
   const TrainingStartPage({super.key});
 
   @override
   TrainingStartPageState createState() => TrainingStartPageState();
 }
 
-class TrainingStartPageState extends State<TrainingStartPage> {
+class TrainingStartPageState extends ConsumerState<TrainingStartPage> {
   String? selectedPlan;
   bool isStarted = false;
   bool isPaused = false;
   late Stopwatch stopwatch;
   late Timer timer;
   Duration elapsed = Duration.zero;
+  List<Map<String, dynamic>> trainingPlans = [];
 
   @override
   void initState() {
@@ -29,6 +32,14 @@ class TrainingStartPageState extends State<TrainingStartPage> {
           elapsed = stopwatch.elapsed;
         }
       });
+    });
+    _fetchTrainingPlans();
+  }
+
+  Future<void> _fetchTrainingPlans() async {
+    final plans = await DatabaseHelper().getTrainingPlans();
+    setState(() {
+      trainingPlans = plans;
     });
   }
 
@@ -60,7 +71,57 @@ class TrainingStartPageState extends State<TrainingStartPage> {
       stopwatch.stop();
       stopwatch.reset();
       elapsed = Duration.zero;
+      _saveTrainingDialog();
     });
+  }
+
+  Future<void> _saveTrainingDialog() async {
+    final TextEditingController controller = TextEditingController();
+    bool isButtonDisabled = true;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: const Text('Save Training', style: TextStyle(color: Colors.green)),
+              content: TextField(
+                controller: controller,
+                decoration: const InputDecoration(hintText: 'Enter training name'),
+                onChanged: (text) {
+                  setState(() {
+                    isButtonDisabled = text.isEmpty;
+                  });
+                },
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () async {
+                          final trainingName = controller.text;
+                          if (trainingName.isNotEmpty) {
+                            await DatabaseHelper().insertRecentTraining(trainingName);
+                            Navigator.of(context).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Training saved successfully')),
+                            );
+                            ref.refresh(recentTrainingProvider);
+                          }
+                        },
+                  child: const Text('Save', style: TextStyle(color: Colors.green)),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel', style: TextStyle(color: Colors.green)),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -85,17 +146,14 @@ class TrainingStartPageState extends State<TrainingStartPage> {
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             DropdownButton<String>(
-              hint: Text('Select Plan',
-                  style: Theme.of(context).textTheme.bodyMedium),
+              hint: Text('Select Plan', style: TextStyle(color: Theme.of(context).primaryColor)),
               value: selectedPlan,
-              items: List.generate(
-                10,
-                (index) => DropdownMenuItem(
-                  value: 'Training Plan ${index + 1}',
-                  child: Text('Training Plan ${index + 1}',
-                      style: Theme.of(context).textTheme.bodyMedium,),
-                ),
-              ),
+              items: trainingPlans.map((plan) {
+                return DropdownMenuItem<String>(
+                  value: plan['name']?.toString(),
+                  child: Text(plan['name']?.toString() ?? 'Unknown Plan', style: TextStyle(color: Theme.of(context).primaryColor)),
+                );
+              }).toList(),
               onChanged: (value) {
                 setState(() {
                   selectedPlan = value;
@@ -105,7 +163,7 @@ class TrainingStartPageState extends State<TrainingStartPage> {
             if (selectedPlan != null && isStarted)
               Expanded(
                 child: ListView.builder(
-                  itemCount: 5, // Assume 5 exercises per training plan
+                  itemCount: 5,
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text('Exercise ${index + 1} for $selectedPlan'),
@@ -135,8 +193,7 @@ class TrainingStartPageState extends State<TrainingStartPage> {
           ],
         ),
       ),
-      bottomNavigationBar: const MyBottomNavigationBar(
-          currentIndex: 1), // Assuming Training is at index 1
+      bottomNavigationBar: const MyBottomNavigationBar(currentIndex: 1),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+// final databaseProvider = Provider((ref) => DatabaseHelper());
+
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();
   factory DatabaseHelper() => _instance;
@@ -18,12 +20,27 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'gymbuddies.db');
     return openDatabase(
       path,
-      version: 1,
+      version: 5,
+      onUpgrade: _onUpgrade,
       onCreate: (db, version) {
+        db.execute('''
+        CREATE TABLE contacts(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT,
+          email TEXT UNIQUE,
+          trainings INTEGER DEFAULT 0,
+          last_trained TEXT
+        )
+        ''');
         db.execute('''
           CREATE TABLE upcoming_trainings(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            training TEXT
+            training TEXT,
+            date TEXT,
+            training_plan_id INTEGER,
+            contact_id INTEGER,
+            FOREIGN KEY (training_plan_id) REFERENCES training_plans(id),
+            FOREIGN KEY (contact_id) REFERENCES contacts(id)
           )
         ''');
         db.execute('''
@@ -32,8 +49,51 @@ class DatabaseHelper {
             training TEXT
           )
         ''');
+        db.execute('''
+          CREATE TABLE training_plans (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            description TEXT
+          )
+        ''');
       },
     );
+  }
+
+  Future<void> insertContact(String name, String email) async {
+    final db = await database;
+    
+    // Check if the contact already exists
+    final List<Map<String, dynamic>> result = await db.query(
+      'contacts',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+
+    if (result.isEmpty) {
+      await db.insert(
+        'contacts',
+        {
+          'name': name,
+          'email': email,
+          'trainings': 0,
+          'last_trained': null,
+        },
+        conflictAlgorithm: ConflictAlgorithm.rollback,
+      );
+    } else {
+      throw ContactAlreadyExistsException('Contact with email $email already exists');
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getContacts() async {
+    final db = await database;
+    return await db.query('contacts');
+  }
+
+  Future<void> deleteContact(int id) async {
+    final db = await database;
+    await db.delete('contacts', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<void> clearUpcomingTrainings() async {
@@ -46,9 +106,23 @@ class DatabaseHelper {
     await db.delete('recent_trainings');
   }
 
-  Future<void> insertUpcomingTraining(String training) async {
+  Future<List<Map<String, dynamic>>> getRecentTrainings() async {
     final db = await database;
-    await db.insert('upcoming_trainings', {'training': training});
+    return await db.query('contacts');
+  }
+
+  Future<void> insertUpcomingTraining(String training, String date, int trainingPlanId, int? contactId) async {
+      final db = await database;
+      await db.insert(
+        'upcoming_trainings',
+        {
+          'training': training,
+          'date': date,
+          'training_plan_id': trainingPlanId,
+          'contact_id': contactId,
+        },
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
   }
 
   Future<void> insertRecentTraining(String training) async {
@@ -56,12 +130,78 @@ class DatabaseHelper {
     await db.insert('recent_trainings', {'training': training});
   }
 
+  Future<List<Map<String, Object?>>> getRecentTraining() async {
+    final db = await database;
+    final result = await db.query('recent_trainings', orderBy: 'id DESC', limit: 10);
+    return result;
+  }
+
+
   Future<List<String>> getTrainings(String tableName) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(tableName);
-  
     return List.generate(maps.length, (int i) {
       return maps[i]['training'] as String;
     });
   }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 5) {
+      await 
+        db.execute('''
+          CREATE TABLE training_event_plans (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            training TEXT,
+            date TEXT,
+            training_plan_id INTEGER,
+            contact_id INTEGER,
+            FOREIGN KEY (training_plan_id) REFERENCES training_plans(id),
+            FOREIGN KEY (contact_id) REFERENCES contacts(id)
+          )
+        ''');
+    }
+  }
+    
+  Future<List<Map<String, dynamic>>> getUpcomingTrainings() async {
+    final db = await database;
+    final upcomingTrainings = await db.query('upcoming_trainings');
+    return upcomingTrainings;
+  }
+
+  Future<void> deleteUpcomingTraining(int id) async {
+    final db = await database;
+    await db.delete('upcoming_trainings', where: 'id = ?', whereArgs: [id]);
+  }
+
+  Future<void> insertTrainingPlan(String name, String description) async {
+    final db = await database;
+    await db.insert(
+      'training_plans',
+      {'name': name, 'description': description},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getTrainingPlans() async {
+    final db = await database;
+    return await db.query('training_plans');
+  }
+
+    Future<void> deleteTrainingPlan(int id) async {
+    final db = await database;
+    await db.delete(
+      'training_plans',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+}
+
+class ContactAlreadyExistsException implements Exception {
+  final String message;
+  ContactAlreadyExistsException(this.message);
+
+  @override
+  String toString() => 'ContactAlreadyExistsException: $message';
 }

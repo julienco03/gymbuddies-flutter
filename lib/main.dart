@@ -18,7 +18,7 @@ import 'presentation/training/pages/start_training_page.dart';
 import 'presentation/training/widgets/training_plan_detail_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final _router = GoRouter(
+final GoRouter _router = GoRouter(
   initialLocation: '/login',
   routes: [
     GoRoute(
@@ -97,9 +97,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final dbHelper = DatabaseHelper();
 
-  // Optionally clear existing data if you always want to start fresh
-  await dbHelper.clearUpcomingTrainings();
-  await dbHelper.clearRecentTrainings();
+  // Initialize the database
+  await dbHelper.database;
 
   // Insert initial data if not already present
   await _initializeData(dbHelper);
@@ -108,29 +107,40 @@ void main() async {
 }
 
 Future<void> _initializeData(DatabaseHelper dbHelper) async {
-  List<String> upcomingTrainings = [
-    'In 1 Day: Biking with Tom',
-    'In 4 Days: Chest Day with Harry',
-    'On 05 May: Hiking with Larry',
-    'On 12 June: Swimming with Mike',
-    'On 19 June: Chest with Luke'
-  ];
+  List<Map<String, dynamic>> existingUpcomingTrainings = await dbHelper.getUpcomingTrainings();
+  List<Map<String, dynamic>> existingRecentTrainings = await dbHelper.getRecentTrainings();
 
-  List<String> recentTrainings = [
-    '3 days ago | 1:30h | Biking',
-    '5 days ago | 30min | Jogging',
-    '15.04.2024 | 45min | Legs',
-    '12.03.2024 | 2:00h | Swimming',
-    '18.03.2024 | 2:30h | Biking'
-  ];
+  if (existingUpcomingTrainings.isEmpty) {
+    List<Map<String, dynamic>> upcomingTrainings = [
+      {'training': 'Biking with Tom', 'date': '2024-05-01', 'training_plan': 1, 'contact': 1},
+      {'training': 'Chest Day with Harry', 'date': '2024-05-04', 'training_plan': 1, 'contact': 1},
+      {'training': 'Hiking with Larry', 'date': '2024-05-05', 'training_plan': 1, 'contact': 1},
+      {'training': 'Swimming with Mike', 'date': '2024-06-12', 'training_plan': 1, 'contact': 1},
+      {'training': 'Chest with Luke', 'date': '2024-06-19', 'training_plan': 1, 'contact': 1},
+    ];
 
-  // Insert data with duplicate checks
-  for (var training in upcomingTrainings) {
-    await dbHelper.insertUpcomingTraining(training);
+    for (var training in upcomingTrainings) {
+      await dbHelper.insertUpcomingTraining(
+        training['training'] as String,
+        training['date'] as String,
+        training['training_plan'] as int,
+        training['contact'] as int,
+      );
+    }
   }
 
-  for (var training in recentTrainings) {
-    await dbHelper.insertRecentTraining(training);
+  if (existingRecentTrainings.isEmpty) {
+    List<String> recentTrainings = [
+      '3 days ago | 1:30h | Biking',
+      '5 days ago | 30min | Jogging',
+      '15.04.2024 | 45min | Legs',
+      '12.03.2024 | 2:00h | Swimming',
+      '18.03.2024 | 2:30h | Biking'
+    ];
+
+    for (var training in recentTrainings) {
+      await dbHelper.insertRecentTraining(training);
+    }
   }
 }
 

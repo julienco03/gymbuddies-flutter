@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:gymbuddies/database/database_helper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gymbuddies/providers/contact_provider.dart';
 
-class ContactItem extends StatelessWidget {
+class ContactItem extends ConsumerWidget {
   final String contactName;
-  final String trainingInformation;
   final int contactId;
+  final String trainingInformation;
 
   const ContactItem({
     super.key,
     required this.contactName,
-    required this.trainingInformation,
     required this.contactId,
+    required this.trainingInformation,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dbHelper = DatabaseHelper();
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Card(
@@ -22,14 +26,16 @@ class ContactItem extends StatelessWidget {
           title: Text(contactName),
           subtitle: Text(trainingInformation),
           trailing: IconButton(
-            icon: const Icon(Icons.history),
-            onPressed: () {
-              // Handle edit action
+            icon: const Icon(Icons.delete),
+            onPressed: () async {
+              try {
+                await dbHelper.deleteContact(contactId);
+                ref.refresh(contactsProvider);
+              } catch (e) {
+                print('Error deleting contact: $e');
+              }
             },
           ),
-          onTap: () {
-            context.push('/contacts/detail/$contactId');
-          },
         ),
       ),
     );

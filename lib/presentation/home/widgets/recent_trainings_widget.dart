@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../providers/training_provider.dart';
+import '../../../providers/recent_training_provider.dart';
 
 class RecentTrainingsWidget extends ConsumerWidget {
   const RecentTrainingsWidget({super.key});
@@ -17,34 +17,29 @@ class RecentTrainingsWidget extends ConsumerWidget {
         Row(
           children: [
             const SizedBox(width: 20),
-            Text(
-              'Recent Trainings',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
+            Text('Recent Trainings', style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
         const Padding(
-          padding:
-              EdgeInsetsDirectional.symmetric(horizontal: 40.0, vertical: 5.0),
-        ),
+            padding: EdgeInsetsDirectional.symmetric(
+                horizontal: 40.0, vertical: 5.0)),
         recentTrainingsAsyncValue.when(
-          data: (List<String> upcomingTrainings) {
-            if (upcomingTrainings.length <= 4) {
+          data: (List<String> recentTrainings) {
+            if (recentTrainings.length <= 4) {
               // No scrolling needed for 4 or less entries
               return _buildTrainingList(
-                  context, upcomingTrainings, screenWidth);
+                  context, recentTrainings, screenWidth);
             } else {
-              // Use ListView with horizontal scrolling for more than 4 entries
               return SizedBox(
                 width: screenWidth,
-                height: 150, // Adjust height as needed
+                height: 150,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: upcomingTrainings.length,
+                  itemCount: recentTrainings.length,
                   itemBuilder: (context, index) => _buildTrainingItem(
                     context,
-                    upcomingTrainings[index],
-                    screenWidth * 0.85, // Adjust container width if needed
+                    recentTrainings[index],
+                    screenWidth * 0.85,
                   ),
                 ),
               );
@@ -75,13 +70,13 @@ class RecentTrainingsWidget extends ConsumerWidget {
   Widget _buildTrainingItem(BuildContext context, String text, double width) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-          vertical: 5.0, horizontal: 5.0), // Adjust horizontal padding here
+          vertical: 5.0, horizontal: 5.0),
       child: Container(
         width: width,
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
-          boxShadow: const [BoxShadow(color: Colors.grey)],
+          boxShadow: const [BoxShadow(color: Colors.black)],
           borderRadius: const BorderRadius.all(Radius.circular(25.0)),
         ),
         child: Text(
