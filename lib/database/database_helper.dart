@@ -125,7 +125,7 @@ class DatabaseHelper {
       );
   }
 
-  Future<void> insertRecentTraining(String training) async {
+  Future<void> insertRecentTraining(String training, DateTime dateTime) async {
     final db = await database;
     await db.insert('recent_trainings', {'training': training});
   }

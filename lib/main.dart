@@ -139,7 +139,7 @@ Future<void> _initializeData(DatabaseHelper dbHelper) async {
     ];
 
     for (var training in recentTrainings) {
-      await dbHelper.insertRecentTraining(training);
+      await dbHelper.insertRecentTraining(training, DateTime.now());
     }
   }
 }

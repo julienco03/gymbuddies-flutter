@@ -21,10 +21,8 @@ class CalendarNewSessionView extends StatelessWidget {
             if (selectedDay != null)
               Text(
                 'Ausgewähltes Datum: ${selectedDay.toLocal().toIso8601String().split('T').first}',
-                // style: Theme.of(context).textTheme.headline6,
               ),
             const SizedBox(height: 20),
-            // Hier kannst du das Formular oder weitere Widgets hinzufügen
             TextFormField(
               decoration: const InputDecoration(
                 labelText: 'Training Titel',
@@ -33,7 +31,6 @@ class CalendarNewSessionView extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Handle adding new training event
               },
               child: const Text('Hinzufügen'),
             ),
