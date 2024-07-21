@@ -100,7 +100,7 @@ class TrainingStartPageState extends ConsumerState<TrainingStartPage> {
                   onPressed: () async {
                           final trainingName = controller.text;
                           if (trainingName.isNotEmpty) {
-                            await DatabaseHelper().insertRecentTraining(trainingName);
+                            await DatabaseHelper().insertRecentTraining(trainingName, DateTime.now());
                             Navigator.of(context).pop();
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Training saved successfully')),
