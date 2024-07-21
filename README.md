@@ -32,10 +32,11 @@ The primary problem Gymbuddies addresses is the lack of organization and social 
 ### Home Page
 
 - Functionality: Displays upcoming and recent training sessions, providing an overview of the user's workout schedule and history.
+- Posibility to start a new training.
 
 ### Training Plan Page
 
-- Functionality: Allows users to create and start training plans, offering a structured approach to their workouts.
+- Functionality: Allows users to create training plans, offering a structured approach to their workouts.
 
 ### Calendar Page
 
@@ -47,11 +48,11 @@ The primary problem Gymbuddies addresses is the lack of organization and social 
 
 ### Settings Page
 
-- Functionality: Provides options to customize the app settings, including theme, notifications, and other preferences.
+- Functionality: Provides options to customize the app settings, including theme and other preferences.
 
 ### Profile Page
 
-- Functionality: Users can view and edit their profile information, track their fitness progress, and manage their account details.
+- Functionality: Users can view and edit their profile information, and manage their account details.
 
 ### Login and Register Pages
 
@@ -63,19 +64,109 @@ Gymbuddies follows a layered architecture to ensure separation of concerns and m
 
 ### Model
 
-- Responsibility: Defines the data structures and models used throughout the app, representing the core entities such as User, TrainingPlan, and Session.
+- Defines the data structures and models used throughout the app, representing the core entities such as User, TrainingPlan, and Session.
 
 ### Business Logic
 
-- Responsibility: Contains the business rules and logic that govern how the data is processed and manipulated. This layer ensures the application's functionality aligns with the business requirements.
+- Contains the business rules and logic that govern how the data is processed and manipulated. This layer ensures the application's functionality aligns with the business requirements.
 
 ### View
 
-- Responsibility: Manages the UI components, rendering the data to the user and handling user interactions. This layer ensures a smooth and intuitive user experience.
+- Manages the UI components, rendering the data to the user and handling user interactions. This layer ensures a smooth and intuitive user experience.
 
 ### Services
 
-- Responsibility: Handles external interactions, such as database access, network requests, and third-party API integrations. This layer abstracts the data access and communication logic.
+- Handles external interactions, such as database access, network requests, and third-party API integrations. This layer abstracts the data access and communication logic.
+
+## Other criteria covered
+
+Linter Rules:
+
+- Utilization of linter rules ensures code consistency and quality. Linter rules have been applied in GymBuddies.
+
+Stricter Type Checks:
+
+- By using Dart's type system and avoiding dynamic types, stricter type checks have been implemented.
+
+Stateful Widgets for Ephemeral State:
+
+- Ephemeral state, which is short-lived and not needed across widget boundaries, is managed with stateful widgets.
+
+Composition over Inheritance:
+
+- Composition is preferred over inheritance in many areas to create more flexible and reusable code structures.
+
+Centralized Navigation Logic:
+
+- Navigation logic is centralized and used by various parts of the app.
+
+Typed Routes over Untyped Routes:
+
+- Typed routes are preferred for type safety and error prevention.
+
+Separation of Concerns:
+
+- Clear separation of model, business logic, and view is maintained to improve the app's maintainability and extensibility.
+
+Layer-Specific Models:
+
+- Each layer (model, business logic, view) defines its own models to clearly separate responsibilities.
+
+Abstraction of Non-Integral Dependencies:
+
+- Dependencies, such as translation and state management, are abstracted through interfaces for easier interchangeability and testability.
+
+Data Persistence Solution:
+
+- A data persistence solution (e.g., SQLite) is implemented for local data storage when necessary.
+
+Avoidance of Dynamic Types:
+
+- Specific types are used instead of dynamic to enhance type safety and code quality.
+
+No Hardcoded Strings in Widgets:
+
+- Strings are managed in separate files (e.g., through internationalization) to avoid hardcoding.
+
+Avoidance of Hardcoded Data:
+
+- External data sources or configuration files are used instead of hardcoded data.
+
+Avoidance of "Magic Numbers" or Unclear Constants:
+
+- Magic numbers are replaced with named constants to make the code more readable and understandable.
+
+Reliable State Management:
+
+- State management (e.g., using Riverpod) is implemented to ensure consistent and reliable data management.
+
+Proper Resource Disposal:
+
+- Resources such as streams and controllers are properly disposed of to avoid memory leaks.
+
+Avoidance of Code Duplication:
+
+- Logical abstraction and code reuse are employed to minimize code duplication.
+
+Avoidance of Hardcoded Colors and Font Sizes:
+
+- Colors and font sizes are defined through thematic configurations rather than hardcoding.
+
+Adherence to Software Principles (KISS, DRY, YAGNI, SOLID):
+
+- These principles are adhered to for writing clean and maintainable code.
+
+Error Handling and Exception Management:
+
+- Mechanisms for error handling and exception management are implemented to avoid and manage unforeseen issues.
+
+Graceful Error Handling:
+
+- The app is designed to not crash and to display appropriate error messages when an error occurs.
+
+Compile-Time Error Prevention:
+
+- Runtime errors are minimized by using type checks and other compile-time constructs.
 
 ## Architecture Diagram
 
@@ -106,28 +197,56 @@ Gymbuddies follows a layered architecture to ensure separation of concerns and m
 
 ## File Structure
 
-![file structure](file_structure.png)
+![file structure](images/file_structure.png)
 
 By structuring the project in this manner, Gymbuddies maintains a clean separation of concerns, making it easier to manage, scale, and test the application. The use of Riverpod for state management ensures that the application state is handled efficiently and reactively.
 
 ## Pages
 
-![Home Page](home_page.png)
+Home Page:
 
-![Training Plans](training_plans.png)
+![Home Page](images/home_page.png)
 
-![Calendar](Calendar.png)
+Home Page White Mode:
 
-![Contacts](Contacts.png)
+![Home Page White Mode](images/home_page_white.png)
 
-![Training](Training.png)
+Training Plans:
 
-![Settings](Settings.png)
+![Training Plans](images/training_plans_page.png)
 
-![Profile](Profile.png)
+Calendar:
 
-![Login](Login.png)
+![Calendar](images/calender_page.png)
 
-![Register](Register.png)
+Contacts:
+
+![Contacts](images/contacts_page.png)
+
+Training:
+
+![Training](images/start_training_page.png)
+
+Settings:
+
+![Settings](images/settings.png)
+
+Profile:
+
+![Profile](images/profile.png)
+
+Login:
+
+![Login](images/login.png)
+
+Register:
+
+![Register](images/register.png)
+
+## Credits
 
 This app is designed and developed as part of the lectures on mobile applications at the HTWG Konstanz.
+
+### By 
+
+Stefan Ptacek, Julian Klimek
